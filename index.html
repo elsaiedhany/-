@@ -1,80 +1,57 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>مطابخ التقوي | مطبخك على ذوقك</title>
-  <meta name="description" content="مطابخ التقوي - تصميم وتنفيذ مطابخ مودرن وألوميتال بأعلى جودة وضمان 15 سنة.">
-  <link rel="canonical" href="https://elsaiedhany.github.io/">
-  <meta property="og:title" content="مطابخ التقوي | مطبخك على ذوقك">
-  <meta property="og:description" content="تصميم وتنفيذ مطابخ مودرن وألوميتال مع ضمان 15 سنة.">
-  <meta property="og:image" content="images/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>التقوي لأعمال الألومنيوم</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <a href="index.html" aria-label="التقوي">
-        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0 0 150 50">
-          <rect width="150" height="50" rx="8" fill="#c0392b" />
-          <text x="75" y="32" text-anchor="middle" font-family="Cairo, sans-serif" font-size="24" fill="#fff">التقوي</text>
-        </svg>
-      </a>
+
+  <!-- Header + Navbar -->
+  <header class="site-header">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <h1 class="logo">التقوي للألومنيوم</h1>
+      <button id="menu-toggle" class="hamburger md:hidden" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu md:flex hidden">
+        <a href="#about">عنّا</a>
+        <a href="#gallery">أعمالنا</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">الرئيسية</a></li>
-        <li><a href="kitchens1.html">مطابخ مودرن</a></li>
-        <li><a href="kitchens2.html">مطابخ ألوميتال</a></li>
-      </ul>
-    </nav>
   </header>
 
-  <section class="hero">
-    <picture>
-      <source srcset="images/hero.webp" type="image/webp">
-      <img src="images/hero.jpg" alt="خلفية مطبخ مودرن" loading="lazy">
-    </picture>
-    <div class="hero-text">
-      <h1>مطابخ التقوي</h1>
-      <p>تصميمات مودرن وألوميتال بتعيش سنين، مع ضمان حقيقي 15 سنة.</p>
-      <button data-scroll-to="about-large">تعرف علينا</button>
-    </div>
+  <!-- About Section -->
+  <section id="about" class="container mx-auto py-12">
+    <h2 class="section-title">عن شركة التقوي</h2>
+    <p>
+      شركة التقوي لأعمال الألومنيوم موجودة في السنبلاوين منذ أكثر من <strong>20 عاماً</strong>، 
+      وتقدم أفضل التصميمات والخامات العصرية بأعلى جودة. 
+      نفخر بتاريخ طويل من المشاريع الناجحة والعمل المخلص لعملائنا الكرام.
+    </p>
+    <p>
+      نقدم ضماناً لمدة <strong>30 سنة</strong> على كافة مطابخنا، 
+      ونستخدم أحدث التقنيات في التصنيع والتركيب لضمان متانة المنتج واستمراريته.
+    </p>
   </section>
 
-  <section id="about-large" class="about-large">
-    <h2>من نحن</h2>
-    <p>مطابخ التقوي هي الاسم الأبرز في عالم المطابخ المودرن والألوميتال بمصر. منذ انطلاقنا قبل أكثر من 10 سنوات، نسعى لتقديم أفضل تجربة تصميم وتنفيذ لعملائنا، مع التركيز على الجودة العالية والتفاصيل الدقيقة.</p>
-    <p>فريقنا يضم مهندسين وفنيين متخصصين في استخدام تقنيات CNC المتقدمة وخامات الألوميتال المستوردة لضمان متانة مطبخك وأناقة لا تضاهى. نهتم بكل مرحلة من المشروع، من الرسم الأولي إلى التركيب النهائي، مع التزامنا بالمواعيد وضمان 15 سنة للصيانة.</p>
+  <!-- Gallery Section -->
+  <section id="gallery" class="container mx-auto py-12">
+    <h2 class="section-title">أعمالنا</h2>
+    <div class="grid gallery-grid"></div>
   </section>
 
-  <section class="main-gallery">
-    <h2>أبرز مشاريعنا</h2>
-    <div class="images">
-      <img src="images/main1.jpg" alt="مشروع مطبخ 1">
-      <img src="images/main2.jpg" alt="مشروع مطبخ 2">
-      <img src="images/main3.jpg" alt="مشروع مطبخ 3">
-      <img src="images/main4.jpg" alt="مشروع مطبخ 4">
-    </div>
+  <!-- Contact / WhatsApp -->
+  <section id="contact" class="container mx-auto py-12 text-center">
+    <h2 class="section-title">لحجز استشارة أو طلب سعر</h2>
+    <a href="https://wa.me/201234567890" class="btn-whatsapp">تواصل عبر واتساب</a>
   </section>
 
-  <section id="booking" class="booking">
-    <h2>احجز مطبخك الآن</h2>
-    <form onsubmit="sendBooking(event)">
-      <input type="text" name="name" placeholder="اسمك" required>
-      <input type="tel" name="phone" placeholder="رقم تليفونك (11 رقم)" required pattern="\d{11}">
-      <button type="submit">احجز عبر واتساب</button>
-    </form>
-    <p class="info">مقدم الحجز: 4000 جنيه (Vodafone Cash: 01000693317)</p>
-  </section>
-
-  <footer>
-    <p>للتواصل: <a href="tel:+201003515207">01003515207</a></p>
-    <p>&copy; 2025 مطابخ التقوي. كل الحقوق محفوظة</p>
-  </footer>
-
-  <script defer src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
