@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.classList.toggle('show');
   });
 
-  // Generate gallery of 52 images
+  // Generate gallery of 52 images (with uppercase 'Kitchen')
   const gallery = document.querySelector('.gallery-grid');
   for (let i = 1; i <= 52; i++) {
     const pic = document.createElement('picture');
     pic.innerHTML = `
-      <source srcset="images/kitchen${i}.webp" type="image/webp">
-      <img src="images/kitchen${i}.jpg" alt="مطابخ ألمنيوم مودرن ${i}" loading="lazy">
+      <source srcset="images/Kitchen${i}.webp" type="image/webp">
+      <img src="images/Kitchen${i}.jpg" alt="مطابخ ألمنيوم مودرن ${i}" loading="lazy">
     `;
     gallery.appendChild(pic);
   }
