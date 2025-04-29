@@ -1,15 +1,61 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>التقوي لأعمال الألومنيوم</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* تأثير الإضاءات والنصوص */
+    #about {
+      padding: 60px 20px;
+      background: #f5f5f5;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
+      margin-top: 40px;
+    }
+    #about h2 {
+      text-align: center;
+      font-size: 3em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
+    #about p {
+      line-height: 1.8;
+      margin: 20px 0;
+      font-size: 1.1em;
+      color: #333;
+    }
+    #contact {
+      padding: 60px 20px;
+      background: #fff;
+      text-align: center;
+      margin-top: 40px;
+    }
+    #contact h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    #contact p {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+    }
+    #contact a.whatsapp {
+      display: inline-block;
+      background: #25D366;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1.1em;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    #contact a.whatsapp:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
-<body>
-
-  <!-- Navbar -->
-  <header class="site-header">
+<body>  <!-- Navbar -->  <header class="site-header">
     <div class="container">
       <h1 class="logo">التقوي للألومنيوم</h1>
       <button id="menu-toggle" class="hamburger" aria-label="فتح القائمة">
@@ -21,14 +67,21 @@
         <a href="#contact">تواصل معنا</a>
       </nav>
     </div>
-  </header>
-
-  <!-- Gallery -->
-  <section id="gallery" class="container gallery">
+  </header>  <!-- About Section -->  <section id="about" class="container">
+    <h2>عنّا</h2>
+    <p>نحن في <strong>التقوي للألومنيوم</strong> نمتلك خبرة تفوق الـ 20 سنة في مجال تصنيع وتركيب جميع منتجات الألومنيوم بجودة عالية وتصاميم عصرية تناسب مختلف الاحتياجات.</p>
+    <p>منذ انطلاقنا ونحن نعمل بحرفية عالية وتفانٍ لخدمة عملائنا الكرام، معتمدين على أحدث الأجهزة والتقنيات العالمية في التصنيع. فريقنا المختص يحرص دائماً على الالتزام بالمواعيد وتسليم المشاريع بأفضل حال.</p>
+    <p>تكمن رؤيتنا في تقديم حلول متكاملة تبدأ من التصميم الهندسي وصولاً إلى التركيب النهائي، مع ضمان توفير مواد من الدرجة الأولى تضمن متانة وجمالية تدوم لسنوات طويلة.</p>
+    <p>نفتخر بأننا قدمنا خدماتنا لقطاع كبير من الشركات والمؤسسات والمباني السكنية والتجارية، مع توفير استشارات فنية مجانية تساعدك في اختيار الأنسب لمشروعك.</p>
+    <p>كما نوفر لعملائنا ضماناً يمتد حتى 35 سنة ضد عيوب التصنيع والتآكل، مع متابعة دورية وخدمات صيانة لضمان أفضل أداء وجودة دائمة.</p>
+    <p>سواء كنت تبحث عن نوافذ، أبواب، مظلات، واجهات زجاجية، أو أي عمل معدني آخر من الألومنيوم، <strong>التقوي للألومنيوم</strong> هو شريكك الأمثل لتحقيق مشروعك بأعلى معايير الاحتراف.</p>
+  </section>  <!-- Gallery -->  <section id="gallery" class="container gallery">
     <h2>أعمالنا</h2>
     <div class="gallery-grid"></div>
-  </section>
-
-  <script src="js/script.js"></script>
-</body>
+  </section>  <!-- Contact Section -->  <section id="contact" class="container">
+    <h2>تواصل معنا</h2>
+    <p>لأي استفسار أو طلب عرض سعر، يمكنك التواصل معنا عبر الواتساب على الرقم التالي:</p>
+    <a class="whatsapp" href="https://wa.me/201234567890">أرسل رسالة واتساب</a>
+    <p>أو اتصل بنا على هاتف المكتب: <strong>0123-456-7890</strong></p>
+  </section>  <script src="js/script.js"></script></body>
 </html>
