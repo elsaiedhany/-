@@ -7,16 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.classList.toggle('show');
   });
 
-  // Generate gallery of 52 images with absolute path prefix "/-/"
+  // Generate gallery of 52 images
   const gallery = document.querySelector('.gallery-grid');
-  const prefix = '/-/images/';  // ← مهم: المسار المطلق تحت مجلد النشر
+  const prefix = '/-/images/';  // المسار المطلق (تأكد أنه المسار الصحيح)
+  
   for (let i = 1; i <= 52; i++) {
     const pic = document.createElement('picture');
     pic.innerHTML = `
       <source srcset="${prefix}Kitchen${i}.webp" type="image/webp">
-      <img src="${prefix}Kitchen${i}.jpg"
-           alt="مطابخ ألمنيوم مودرن ${i}"
-           loading="lazy">
+      <img src="${prefix}Kitchen${i}.jpg" alt="مطابخ ألمنيوم مودرن ${i}" loading="lazy">
     `;
     gallery.appendChild(pic);
   }
