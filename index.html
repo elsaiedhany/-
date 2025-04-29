@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -13,7 +12,7 @@
 
   <!-- Header + Navbar -->
   <header class="site-header">
-    <div class="container mx-auto flex items-center justify-between p-4">
+    <div class="container flex items-center justify-between p-4">
       <h1 class="logo">التقوي للألومنيوم</h1>
       <button id="menu-toggle" class="hamburger md:hidden" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -21,37 +20,80 @@
       <nav id="nav-menu" class="nav-menu md:flex hidden">
         <a href="#about">عنّا</a>
         <a href="#gallery">أعمالنا</a>
+        <a href="#features">مميزاتنا</a>
         <a href="#contact">تواصل معنا</a>
       </nav>
     </div>
   </header>
 
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="container text-center">
+      <h2 class="hero-title">أحدث مطابخ الألومنيوم بجودة لا تُضاهى</h2>
+      <p class="hero-subtitle">ضمان 30 سنة وخبرة أكثر من 20 عاماً</p>
+      <a href="#contact" class="btn-primary">احجز استشارتك الآن</a>
+    </div>
+  </section>
+
   <!-- About Section -->
-  <section id="about" class="container mx-auto py-12">
+  <section id="about" class="container py-12">
     <h2 class="section-title">عن شركة التقوي</h2>
     <p>
-      شركة التقوي لأعمال الألومنيوم موجودة في السنبلاوين منذ أكثر من <strong>20 عاماً</strong>، 
-      وتقدم أفضل التصميمات والخامات العصرية بأعلى جودة. 
-      نفخر بتاريخ طويل من المشاريع الناجحة والعمل المخلص لعملائنا الكرام.
+      منذ أكثر من <strong>20 عاماً</strong> ونحن نصنع أجود مطابخ الألومنيوم بالسنبلاوين.
+      نفخر بتاريخ طويل من المشاريع الرائدة ورضا عملائنا هو هدفنا الأول.
     </p>
-    <p>
-      نقدم ضماناً لمدة <strong>30 سنة</strong> على كافة مطابخنا، 
-      ونستخدم أحدث التقنيات في التصنيع والتركيب لضمان متانة المنتج واستمراريته.
+    <p class="mt-4">
+      جميع مطابخنا مرفقة بضمان <strong>30 سنة</strong> على الجودة والمتانة،
+      ونستخدم أحدث التقنيات لضمان أفضل نتيجة.
     </p>
   </section>
 
+  <!-- Features Section -->
+  <section id="features" class="features bg-light py-12">
+    <div class="container grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="feature-card">
+        <h3>تصميم عصري</h3>
+        <p>موديلات تناسب جميع الأذواق بألوان مبتكرة.</p>
+      </div>
+      <div class="feature-card">
+        <h3>خامات عالية</h3>
+        <p>ألمنيوم معالج ضد الصدأ والتآكل لضمان الاستدامة.</p>
+      </div>
+      <div class="feature-card">
+        <h3>تركيب سريع</h3>
+        <p>فريق متخصص ينجز تركيب مطبخك في وقت قياسي.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Gallery Section -->
-  <section id="gallery" class="container mx-auto py-12">
+  <section id="gallery" class="container py-12">
     <h2 class="section-title">أعمالنا</h2>
     <div class="grid gallery-grid"></div>
   </section>
 
-  <!-- Contact / WhatsApp -->
-  <section id="contact" class="container mx-auto py-12 text-center">
-    <h2 class="section-title">لحجز استشارة أو طلب سعر</h2>
-    <a href="https://wa.me/201234567890" class="btn-whatsapp">تواصل عبر واتساب</a>
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section py-12">
+    <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="contact-info">
+        <h2 class="section-title">تواصل معنا</h2>
+        <p>للأسئلة أو طلب عرض سعر يمكنك التواصل عبر:</p>
+        <ul class="contact-list">
+          <li>📞 هاتف: 010003515207</li>
+          <li>💬 واتساب: <a href="https://wa.me/201234567890">اضغط هنا</a></li>
+          <li>📍 العنوان: السنبلاوين - كفرالروك</li>
+        </ul>
+      </div>
+      <div class="contact-map">
+        <!-- ضع هنا iframe خريطة جوجل إذا رغبت -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!..."
+          width="100%" height="250" style="border:0;" allowfullscreen=""
+          loading="lazy"></iframe>
+      </div>
+    </div>
   </section>
 
   <script src="js/script.js"></script>
 </body>
-</html>
+          </html>
