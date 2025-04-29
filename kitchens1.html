@@ -2,35 +2,74 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مطابخ مودرن | التقوي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مطابخ مودرن من مطابخ التقوي – تصميم عصري، خامات ممتازة، وضمان 15 سنة.">
+  <meta name="keywords" content="مطابخ مودرن, تصميم مطبخ عصري, مطابخ التقوي, ضمان 15 سنة">
+  <title>مطابخ مودرن | مطابخ التقوي</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="fade-in">
+
+  <!-- HEADER -->
   <header class="fade-in-delay">
-    <div class="logo glow">التقوي</div>
+    <div class="logo glow">مطابخ التقوي</div>
     <nav>
       <ul>
         <li><a href="index.html" class="fade-link">الرئيسية</a></li>
-        <li><a href="kitchens1.html" class="fade-link">مطابخ مودرن</a></li>
-        <li><a href="kitchens2.html" class="fade-link">مطابخ ألوميتال</a></li>
+        <li><a href="kitchens1.html" class="fade-link active">مطابخ مودرن</a></li>
+        <li><a href="kitchens2.html" class="fade-link">جميع المطابخ</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="about fade-in-delay-2">
-    <h2>تصميم عصري</h2>
-    <p>مطبخ يجمع بساطة الخطوط مع فخامة اللمسات والألوان الهادئة.</p>
-  </section>
+  <main>
+    <!-- INTRO -->
+    <section class="about fade-in-delay-2">
+      <h2>مطابخ مودرن بتصميم عصري</h2>
+      <p>اكتشف تشكيلة مطابخ مودرن مع خطوط نظيفة ولمسات فاخرة. تصميم يناسب المساحات الصغيرة والكبيرة، مع خيارات ألوان عصريّة تناسب ذوقك.</p>
+      <ul>
+        <li>خامات مضادة للخدش وسهلة التنظيف</li>
+        <li>إضاءات LED مخفية لإضفاء جو راقٍ</li>
+        <li>أسطح مقاومة للماء والحرارة</li>
+        <li>تركيب احترافي وسريع في كل محافظات مصر</li>
+      </ul>
+    </section>
 
-  <main class="gallery fade-in-delay-3">
-    <img src="images/modern1.jpg" alt="مودرن 1" loading="lazy">
-    <img src="images/modern2.jpg" alt="مودرن 2" loading="lazy">
-    <img src="images/modern3.jpg" alt="مودرن 3" loading="lazy">
+    <!-- GALLERY -->
+    <section class="gallery fade-in-delay-3">
+      <h2>نماذج مطابخ مودرن</h2>
+      <div class="images">
+        <figure>
+          <img src="images/modern1.jpg" alt="مطبخ مودرن أبيض" loading="lazy">
+          <figcaption>مودرن أبيض بالكامل</figcaption>
+        </figure>
+        <figure>
+          <img src="images/modern2.jpg" alt="مطبخ مودرن رمادي" loading="lazy">
+          <figcaption>مودرن رمادي أنيق</figcaption>
+        </figure>
+        <figure>
+          <img src="images/modern3.jpg" alt="مطبخ مودرن بني" loading="lazy">
+          <figcaption>مودرن بني داكن</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="booking fade-in-delay-4">
+      <h2>احجز مطبخ مودرن دلوقتي</h2>
+      <form onsubmit="sendBooking(event)">
+        <input type="text" id="name" placeholder="اسمك الكامل" required>
+        <input type="tel" id="phone" placeholder="رقم التليفون" required>
+        <button type="submit">احجز عبر واتساب</button>
+      </form>
+      <p class="info">مقدم حجز 4000 ج عبر Vodafone Cash: 01000693317</p>
+    </section>
   </main>
 
-  <footer class="fade-in-delay-4">
-    <p><a href="tel:+201003515207">01003515207</a></p>
+  <!-- FOOTER -->
+  <footer class="fade-in-delay-5">
+    <p>للتواصل السريع: <a href="tel:+201003515207">01003515207</a></p>
+    <p>&copy; 2025 مطابخ التقوي</p>
   </footer>
 
   <script src="js/script.js"></script>
