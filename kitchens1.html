@@ -1,71 +1,66 @@
+<!-- =================== kitchens1.html =================== -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مطابخ مودرن | التقوي</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="مطابخ مودرن بتصميمات عالمية ولمسات فخمة مع ضمان 15 سنة.">
+  <link rel="canonical" href="https://elsaiedhany.github.io/kitchens1.html">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="fade-in">
-
-  <header class="fade-in-delay">
-    <div class="logo glow">التقوي</div>
+<body>
+  <header>
+    <div class="logo">التقوي</div>
     <nav>
       <ul>
-        <li><a href="index.html" class="fade-link">الرئيسية</a></li>
-        <li><a href="kitchens1.html" class="fade-link">مطابخ مودرن</a></li>
-        <li><a href="kitchens2.html" class="fade-link">مطابخ ألوميتال</a></li>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="kitchens1.html">مطابخ مودرن</a></li>
+        <li><a href="kitchens2.html">مطابخ ألوميتال</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="about fade-in-delay-2">
+  <section class="about">
     <h2>مطابخ مودرن</h2>
-    <p>
-      مطابخ مودرن بتصميمات عالمية ولمسات فخمة. مناسبة للمساحات الكبيرة والصغيرة،
-      وبتديك مطبخ عملي وفي نفس الوقت شكله تحفة فنية.
-    </p>
-    <p>
-      الخامات المستخدمة مستوردة، والضمان 15 سنة شامل كل حاجة من أول المفصلات لحد الدهانات.
-      التصميم بيتم بمقاساتك الخاصة وبنراعي فيه شكل البيت ومساحته.
-    </p>
+    <p>تصميمات عالمية ولمسات فخمة، تناسب جميع المساحات، عملية وشكلها تحفة فنية.</p>
   </section>
 
-  <section class="gallery fade-in-delay-3">
-    <h2>صور مطابخ مودرن</h2>
+  <section class="gallery">
+    <h2>مجموعة مطابخ مودرن</h2>
     <div class="images">
-      <img src="images/modern1.jpg" alt="مطبخ مودرن 1" loading="lazy" />
-      <img src="images/modern2.jpg" alt="مطبخ مودرن 2" loading="lazy" />
-      <img src="images/modern3.jpg" alt="مطبخ مودرن 3" loading="lazy" />
+      <figure>
+        <img src="images/modern1.jpg" alt="مطبخ مودرن 1" loading="lazy">
+        <figcaption>مودرن أبيض وأسود</figcaption>
+      </figure>
+      <figure>
+        <img src="images/modern2.jpg" alt="مطبخ مودرن 2" loading="lazy">
+        <figcaption>خشب طبيعي ولمسات ذهبية</figcaption>
+      </figure>
+      <figure>
+        <img src="images/modern3.jpg" alt="مطبخ مودرن 3" loading="lazy">
+        <figcaption>تصميم زاوية عملي</figcaption>
+      </figure>
+      <!-- أضف المزيد هنا -->
     </div>
   </section>
 
-  <section class="about fade-in-delay-4">
-    <h2>الأسعار والمميزات</h2>
-    <p>
-      السعر يبدأ من 4000 جنيه للمتر الطولي، شامل خامات وتنفيذ وضمان. 
-      كل التصميمات قابلة للتخصيص بالكامل حسب ذوقك.
-    </p>
-    <p>
-      احجز دلوقتي واحصل على استشارة تصميم مجانية وهتشوف مطبخك 3D قبل التنفيذ!
-    </p>
-  </section>
-
-  <section class="booking fade-in-delay-4">
+  <section class="booking">
     <h2>احجز مطبخك المودرن</h2>
     <form onsubmit="sendBooking(event)">
-      <input type="text" id="name" placeholder="اسمك" required />
-      <input type="tel" id="phone" placeholder="رقم تليفونك" required />
+      <input type="text" name="name" placeholder="اسمك" required>
+      <input type="tel" name="phone" placeholder="رقم تليفونك (11 رقم)" required pattern="\d{11}">
       <button type="submit">احجز عبر واتساب</button>
     </form>
-    <p class="info">المقدم 4000 جنيه عن طريق Vodafone Cash: 01000693317</p>
+    <p class="info">مقدم الحجز: 4000 جنيه (Vodafone Cash: 01000693317)</p>
   </section>
 
-  <footer class="fade-in-delay-5">
-    <p>للتواصل والاستفسارات: <a href="tel:+201003515207">01003515207</a></p>
-    <p>&copy; 2025 مطابخ التقوي. كل الحقوق محفوظة.</p>
+  <footer>
+    <p>للتواصل: <a href="tel:+201003515207">01003515207</a></p>
+    <p>&copy; 2025 مطابخ التقوي. كل الحقوق محفوظة</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script defer src="js/script.js"></script>
 </body>
-</html>
+                                     </html>
