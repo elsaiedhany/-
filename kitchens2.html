@@ -1,71 +1,66 @@
+<!-- =================== kitchens2.html =================== -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مطابخ ألوميتال | التقوي</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="مطابخ ألوميتال مقاومة للصدأ والخدوش مع ضمان 10 سنوات وخدمة ما بعد البيع.">
+  <link rel="canonical" href="https://elsaiedhany.github.io/kitchens2.html">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="fade-in">
-
-  <header class="fade-in-delay">
-    <div class="logo glow">التقوي</div>
+<body>
+  <header>
+    <div class="logo">التقوي</div>
     <nav>
       <ul>
-        <li><a href="index.html" class="fade-link">الرئيسية</a></li>
-        <li><a href="kitchens1.html" class="fade-link">مطابخ مودرن</a></li>
-        <li><a href="kitchens2.html" class="fade-link">مطابخ ألوميتال</a></li>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="kitchens1.html">مطابخ مودرن</a></li>
+        <li><a href="kitchens2.html">مطابخ ألوميتال</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="about fade-in-delay-2">
+  <section class="about">
     <h2>مطابخ ألوميتال</h2>
-    <p>
-      مطابخ الألوميتال تعتبر من أقوى وأطول عمرًا في السوق، ومناسبة تمامًا للمطابخ اللي بيكون فيها نسبة رطوبة أو حرارة عالية.
-      تصميمات عصرية، ألوان متعددة، ومقاومة للصدأ والخدوش.
-    </p>
-    <p>
-      نستخدم ألوميتال مصنعي عالي الجودة مع زجاج مصنفر أو شفاف، حسب اختيارك.
-      الضمان الحقيقي 10 سنوات، والخدمة ما بعد البيع مضمونة.
-    </p>
+    <p>أقوى وأطول عمرًا، مناسبة للرطوبة والحرارة العالية، مقاومة للصدأ والخدوش.</p>
   </section>
 
-  <section class="gallery fade-in-delay-3">
-    <h2>صور مطابخ ألوميتال</h2>
+  <section class="gallery">
+    <h2>مجموعة مطابخ ألوميتال</h2>
     <div class="images">
-      <img src="images/aluminum1.jpg" alt="مطبخ ألوميتال 1" loading="lazy" />
-      <img src="images/aluminum2.jpg" alt="مطبخ ألوميتال 2" loading="lazy" />
-      <img src="images/aluminum3.jpg" alt="مطبخ ألوميتال 3" loading="lazy" />
+      <figure>
+        <img src="images/aluminum1.jpg" alt="مطبخ ألوميتال 1" loading="lazy">
+        <figcaption>ألوميتال مع زجاج مصنفر</figcaption>
+      </figure>
+      <figure>
+        <img src="images/aluminum2.jpg" alt="مطبخ ألوميتال 2" loading="lazy">
+        <figcaption>تصميم مقاوم</figcaption>
+      </figure>
+      <figure>
+        <img src="images/aluminum3.jpg" alt="مطبخ ألوميتال 3" loading="lazy">
+        <figcaption>ألوان متعددة</figcaption>
+      </figure>
+      <!-- أضف المزيد هنا -->
     </div>
   </section>
 
-  <section class="about fade-in-delay-4">
-    <h2>الأسعار والعروض</h2>
-    <p>
-      للاستفسارعلي احدث العروض اتواصل معانا ، وتشمل خامات ممتازة مع تنفيذ احترافي.
-      العروض سارية لفترة محدودة:.
-    </p>
-    <p>
-      اتصل بنا دلوقتي أو احجز موعد استشارة مجانًا.
-    </p>
-  </section>
-
-  <section class="booking fade-in-delay-4">
+  <section class="booking">
     <h2>احجز مطبخك الألوميتال</h2>
     <form onsubmit="sendBooking(event)">
-      <input type="text" id="name" placeholder="اسمك" required />
-      <input type="tel" id="phone" placeholder="رقم تليفونك" required />
+      <input type="text" name="name" placeholder="اسمك" required>
+      <input type="tel" name="phone" placeholder="رقم تليفونك (11 رقم)" required pattern="\d{11}">
       <button type="submit">احجز عبر واتساب</button>
     </form>
-    <p class="info">المقدم 3500 جنيه عن طريق Vodafone Cash: 01000693317</p>
+    <p class="info">مقدم الحجز: 3500 جنيه (Vodafone Cash: 01000693317)</p>
   </section>
 
-  <footer class="fade-in-delay-5">
-    <p>للتواصل والاستفسارات: <a href="tel:+201003515207">01003515207</a></p>
-    <p>&copy; 2025 مطابخ التقوي. كل الحقوق محفوظة.</p>
+  <footer>
+    <p>للتواصل: <a href="tel:+201003515207">01003515207</a></p>
+    <p>&copy; 2025 مطابخ التقوي. كل الحقوق محفوظة</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script defer src="js/script.js"></script>
 </body>
 </html>
