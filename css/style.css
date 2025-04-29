@@ -1,3 +1,5 @@
+/* =================== css/style.css =================== */
+
 /*==================================
   Variables
 ===================================*/
@@ -69,7 +71,7 @@ nav a {
 }
 nav a:hover,
 nav a.active {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /*==================================
@@ -90,7 +92,7 @@ section {
 .hero h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .hero p {
   font-size: 1.1rem;
@@ -111,43 +113,19 @@ section {
   transform: translateY(-3px);
 }
 
-/* About & Services */
-.about ul,
-.services ul {
-  list-style: none;
-  margin-top: 1rem;
-}
-.services .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-.card {
-  background: var(--color-light);
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-.card h3 {
-  margin-bottom: 0.5rem;
-  color: var(--color-primary);
-}
-
-/* Gallery */
+/*==================================
+  Gallery
+===================================*/
 .gallery .images {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
 .gallery figure {
-  text-align: center;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .gallery figcaption {
   margin-top: 0.5rem;
@@ -155,12 +133,14 @@ section {
   color: #555;
 }
 
-/* Booking Form */
+/*==================================
+  Booking Form
+===================================*/
 .booking {
   background: var(--color-light);
   border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   margin: 2rem auto;
   text-align: center;
@@ -198,7 +178,9 @@ section {
   color: #666;
 }
 
-/* Footer */
+/*==================================
+  Footer
+===================================*/
 footer {
   background: #222;
   color: var(--color-light);
