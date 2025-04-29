@@ -7,13 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.classList.toggle('show');
   });
 
-  // Generate gallery of 52 images (with uppercase 'Kitchen')
+  // Generate gallery of 52 images with absolute path prefix "/-/"
   const gallery = document.querySelector('.gallery-grid');
+  const prefix = '/-/images/';  // ← مهم: المسار المطلق تحت مجلد النشر
   for (let i = 1; i <= 52; i++) {
     const pic = document.createElement('picture');
     pic.innerHTML = `
-      <source srcset="images/Kitchen${i}.webp" type="image/webp">
-      <img src="images/Kitchen${i}.jpg" alt="مطابخ ألمنيوم مودرن ${i}" loading="lazy">
+      <source srcset="${prefix}Kitchen${i}.webp" type="image/webp">
+      <img src="${prefix}Kitchen${i}.jpg"
+           alt="مطابخ ألمنيوم مودرن ${i}"
+           loading="lazy">
     `;
     gallery.appendChild(pic);
   }
