@@ -1,57 +1,86 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="مطابخ الألومنيوم بأعلى جودة وتقنيات حديثة">
-    <title>التقوي لأعمال الألومنيوم</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>التقوي لأعمال الألومنيوم</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <ul>
-            <li><a href="#home">الصفحة الرئيسية</a></li>
-            <li><a href="#about">عن الشركة</a></li>
-            <li><a href="#gallery">المعرض</a></li>
-            <li><a href="#contact">التواصل</a></li>
-        </ul>
-    </nav>
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">التقوي للألومنيوم</h1>
+      <button id="menu-toggle" class="hamburger" aria-label="فتح القائمة">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu">
+        <a href="#about">عنّا</a>
+        <a href="#gallery">أعمالنا</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section id="home">
-        <div class="hero-container">
-            <h1>مطابخ ألومنيوم حديثة</h1>
-            <p>نقدم لك أفضل تصاميم المطابخ باستخدام الألومنيوم عالي الجودة.</p>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content" data-aos="zoom-in">
+      <h1 class="hero-title">التقوي للألومنيوم</h1>
+      <p class="hero-subtitle">حيث يلتقي الإبداع مع الجودة لابتكار أفضل الحلول</p>
+      <a href="#contact" class="btn-primary">احصل على عرض مجاني الآن</a>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2>عن الشركة</h2>
-        <p>نحن متخصصون في صناعة وتوريد مطابخ الألومنيوم المتنوعة بأعلى معايير الجودة والتصميم الحديث.</p>
-    </section>
+  <!-- About Section -->
+  <section id="about" class="container" data-aos="fade-up">
+    <h2 class="section-title">لماذا التقوي؟</h2>
+    <p>تأسست "التقوي للألومنيوم" قبل أكثر من 20 عامًا، ونحن نفخر بالاحترافية التي صقلتها سنوات من الخبرة في مجال تصميم وتصنيع وتركيب منتجات الألومنيوم.</p>
+    <p>نعتمد على فريق هندسي وفني متخصص، يستخدم أحدث الأجهزة والتقنيات لضمان أعلى مقاييس الدقة والمتانة. رؤيتنا ترتكز على تقديم حلول شاملة تبدأ من الاستشارة الهندسية، مرورًا بالتصميم الإبداعي، وصولًا إلى التركيب النهائي.</p>
+    <p>نحن لا نقدم منتجًا فحسب، بل تجربة متكاملة لعملائنا، تشمل التسليم في الموعد المتفق عليه، والدعم الفني المستمر، وضمان يمتد حتى 35 سنة ضد عيوب التصنيع والتآكل.</p>
+    <p>خدماتنا تصمم لتلبية احتياجات المؤسسات الكبرى، والمباني السكنية والتجارية، مع توفير استشارات مجانية تساعدك في اختيار أفضل الخيارات لأعمالك.</p>
+    <ul class="grid-cols-3 features" data-aos="fade-up" data-aos-delay="400">
+      <li class="feature-card"><i class="fa-solid fa-clock"></i> خبرة تفوق 20 سنة</li>
+      <li class="feature-card"><i class="fa-solid fa-shield-halved"></i> ضمان 35 سنة شامل</li>
+      <li class="feature-card"><i class="fa-solid fa-comments"></i> استشارات مجانية</li>
+      <li class="feature-card"><i class="fa-solid fa-bolt"></i> تنفيذ سريع ودقيق</li>
+      <li class="feature-card"><i class="fa-solid fa-cubes"></i> أفضل الخامات العالمية</li>
+      <li class="feature-card"><i class="fa-solid fa-tools"></i> دعم ما بعد البيع</li>
+    </ul>
+  </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery">
-        <h2>معرض الأعمال</h2>
-        <div class="gallery-grid">
-            <!-- سيتم تحميل الصور هنا عبر JavaScript -->
-        </div>
-    </section>
+  <!-- Gallery -->
+  <section id="gallery" class="container gallery" data-aos="fade-up">
+    <h2 class="section-title">أعمالنا</h2>
+    <div class="gallery-grid"></div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>التواصل معنا</h2>
-        <form id="contact-form">
-            <input type="text" name="name" placeholder="الاسم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <textarea name="message" placeholder="رسالتك"></textarea>
-            <button type="submit">إرسال</button>
-        </form>
-    </section>
+  <!-- Contact Section -->
+  <section id="contact" class="container" data-aos="fade-up">
+    <h2 class="section-title">تواصل معنا</h2>
+    <p>للحصول على استشارة فورية وعرض سعر احترافي، تواصل معنا عبر الواتساب:</p>
+    <a class="whatsapp" href="https://wa.me/201003515207">01003515207</a>
+    <p style="margin-top:1rem;">أو اتصل بمكتبنا: <strong>01003515207</strong></p>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/201003515207" class="whatsapp-float"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <!-- Footer -->
+  <footer class="container" data-aos="fade-up">
+    <img src="images/logo-footer.png" alt="logo" class="footer-logo">
+    <p>&copy; 2025 التقوي للألومنيوم. جميع الحقوق محفوظة.</p>
+    <div class="footer-links">
+      <a href="#about">عنّا</a> |
+      <a href="#gallery">أعمالنا</a> |
+      <a href="#contact">تواصل معنا</a>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script> AOS.init({ once: true, duration: 800 }); </script>
 </body>
 </html>
