@@ -1,26 +1,34 @@
-// تأثير دخول الصفحة
-window.addEventListener('DOMContentLoaded', () => document.body.classList.add('fade-in'));
+// js/script.js
 
-// انتقل لنموذج الحجز
-function scrollToBooking() {
-  document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-}
+document.addEventListener('DOMContentLoaded', () => {
+  // كود السحب للنموذج إذا كان عندك زر Scroll
+  const scrollBtns = document.querySelectorAll('[data-scroll-to="booking"]');
+  scrollBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 
-// أرسل بيانات الحجز عبر واتساب
-function sendBooking(e) {
-  e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  if (!name || !phone) return alert('من فضلك ادخل بياناتك كاملة');
-  const text = encodeURIComponent(`حجز من مطابخ التقوي\nالاسم: ${name}\nرقم: ${phone}`);
-  window.open(`https://wa.me/201003515207?text=${text}`, '_blank');
-}
-
-// تأثير fade-out عند تغيير الصفحة
-document.querySelectorAll('.fade-link').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    document.body.style.animation = 'fadeOut 0.5s forwards';
-    setTimeout(() => window.location = link.href, 500);
+  // التعامل مع جميع نماذج الحجز
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.addEventListener('submit', sendBooking);
   });
 });
+
+function sendBooking(event) {
+  event.preventDefault();  // يمنع إعادة تحميل الصفحة
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+
+  // التحقق من صحة البيانات
+  if (!name || !phone) {
+    alert('من فضلك املأ الاسم ورقم التليفون.');
+    return;
+  }
+  // بناء رسالة الواتساب
+  const text = `حجز+من+مطابخ+التقوي%0Aالاسم:+${encodeURIComponent(name)}%0Aرقم:+${encodeURIComponent(phone)}`;
+  // فتح تطبيق واتساب في تبويب جديد
+  window.open(`https://wa.me/201003515207?text=${text}`, '_blank');
+}
