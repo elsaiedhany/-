@@ -1,4 +1,3 @@
-// js/script.js
 document.addEventListener('DOMContentLoaded', () => {
   // Hamburger toggle
   const btn = document.getElementById('menu-toggle');
