@@ -1,197 +1,85 @@
-/* --------------------------------
-   1. Reset & Base Styles
--------------------------------- */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 body {
-  font-family: 'Cairo', sans-serif;
-  line-height: 1.6;
-  color: #2c3e50;
-  background: #ffffff;
-}
-.container {
-  width: min(95%, 1200px);
-  margin-inline: auto;
-  padding-block: 1rem;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* --------------------------------
-   2. CSS Variables & BEM Naming
--------------------------------- */
-:root {
-  --primary: #0d47a1;
-  --accent:  #ffca28;
-  --light:   #ffffff;
-  --dark:    #2c3e50;
-  --gap:     1rem;
-  --trans:   0.3s;
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
 }
 
-/* --------------------------------
-   3. Header & Navigation
--------------------------------- */
-.header {
-  position: sticky;
-  top: 0;
-  background: var(--light);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 100;
-}
-.header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.header__logo {
-  font-size: 1.8rem;
-  color: var(--primary);
-}
-.header__toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.header__toggle span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background: var(--dark);
-  margin: 4px 0;
-  transition: transform var(--trans);
-}
-.nav {
-  display: flex;
-}
-.nav__list {
-  display: flex;
-  gap: var(--gap);
-}
-.nav__link {
-  color: var(--dark);
-  padding: 0.5rem;
-  transition: color var(--trans);
-}
-.nav__link:hover {
-  color: var(--primary);
-}
-/* Mobile Toggle */
-@media (max-width: 768px) {
-  .header__toggle { display: block; }
-  .nav { position: absolute; top: 100%; left: 0; right: 0;
-         background: var(--light); flex-direction: column;
-         display: none; }
-  .nav.open { display: flex; }
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-/* --------------------------------
-   4. Hero Section
--------------------------------- */
-.hero {
-  position: relative;
-  min-height: 65vh;
-  background: url('../images/hero-bg.webp') center/cover no-repeat;
-}
-.hero__overlay {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-}
-.hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--light);
-  padding: var(--gap);
-}
-.hero__title {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-.hero__subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-}
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  transition: background var(--trans);
-}
-.btn--primary {
-  background: var(--accent);
-  color: var(--dark);
-}
-.btn--primary:hover {
-  background: #ffc107;
-}
-.btn--whatsapp {
-  background: var(--primary);
-  color: var(--light);
-}
-.btn--whatsapp:hover {
-  background: #08306b;
+nav ul li {
+    display: inline-block;
 }
 
-/* --------------------------------
-   5. Sections & Features
--------------------------------- */
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  color: var(--primary);
-  margin-bottom: var(--gap);
-}
-.about__features,
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
-  gap: var(--gap);
-}
-.feature {
-  background: #f5f5f5;
-  padding: var(--gap);
-  border-radius: 0.75rem;
-  text-align: center;
-  transition: transform var(--trans);
-}
-.feature:hover {
-  transform: translateY(-5px);
-}
-.feature__icon {
-  font-size: 1.5rem;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
+nav ul li a {
+    color: white;
+    text-decoration: none;
 }
 
-/* --------------------------------
-   6. Gallery Grid & Lazy Loading
--------------------------------- */
-.gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: var(--gap);
+.hero-container {
+    text-align: center;
+    background: #555;
+    color: white;
+    padding: 50px 20px;
 }
-/* images handled in JS */
 
-/* --------------------------------
-   7. Footer
--------------------------------- */
-.footer {
-  background: #f5f5f5;
-  text-align: center;
-  padding-block: var(--gap);
+#gallery {
+    padding: 50px 20px;
+    text-align: center;
 }
-.footer__logo {
-  width: 100px;
-  margin-bottom: 0.5rem;
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
-.footer__text {
-  color: var(--dark);
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+#contact form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#contact form input, #contact form textarea {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
 }
