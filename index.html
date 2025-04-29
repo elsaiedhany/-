@@ -5,32 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>التقوي لأعمال الألومنيوم</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Floating WhatsApp Button */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25D366;
-      color: #fff;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      z-index: 1000;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
 
@@ -51,7 +27,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-content">
+    <div class="hero-content" data-aos="zoom-in">
       <h1 class="hero-title">التقوي للألومنيوم</h1>
       <p class="hero-subtitle">حيث يلتقي الإبداع مع الجودة لابتكار أفضل الحلول</p>
       <a href="#contact" class="btn-primary">احصل على عرض مجاني الآن</a>
@@ -59,30 +35,30 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" class="container">
+  <section id="about" class="container" data-aos="fade-up">
     <h2 class="section-title">لماذا التقوي؟</h2>
     <p>تأسست "التقوي للألومنيوم" قبل أكثر من 20 عامًا، ونحن نفخر بالاحترافية التي صقلتها سنوات من الخبرة في مجال تصميم وتصنيع وتركيب منتجات الألومنيوم.</p>
     <p>نعتمد على فريق هندسي وفني متخصص، يستخدم أحدث الأجهزة والتقنيات لضمان أعلى مقاييس الدقة والمتانة. رؤيتنا ترتكز على تقديم حلول شاملة تبدأ من الاستشارة الهندسية، مرورًا بالتصميم الإبداعي، وصولًا إلى التركيب النهائي.</p>
     <p>نحن لا نقدم منتجًا فحسب، بل تجربة متكاملة لعملائنا، تشمل التسليم في الموعد المتفق عليه، والدعم الفني المستمر، وضمان يمتد حتى 35 سنة ضد عيوب التصنيع والتآكل.</p>
     <p>خدماتنا تصمم لتلبية احتياجات المؤسسات الكبرى، والمباني السكنية والتجارية، مع توفير استشارات مجانية تساعدك في اختيار أفضل الخيارات لأعمالك.</p>
-    <ul class="grid-cols-3" style="margin-top:1.5rem;">
-      <li class="feature-card">✔ خبرة تفوق 20 سنة</li>
-      <li class="feature-card">✔ ضمان 35 سنة شامل</li>
-      <li class="feature-card">✔ استشارات تقنية مجانية</li>
-      <li class="feature-card">✔ تنفيذ سريع ودقيق</li>
-      <li class="feature-card">✔ استخدام أفضل الخامات العالمية</li>
-      <li class="feature-card">✔ دعم ما بعد البيع المستمر</li>
+    <ul class="grid-cols-3 features" data-aos="fade-up" data-aos-delay="400">
+      <li class="feature-card"><i class="fa-solid fa-clock"></i> خبرة تفوق 20 سنة</li>
+      <li class="feature-card"><i class="fa-solid fa-shield-halved"></i> ضمان 35 سنة شامل</li>
+      <li class="feature-card"><i class="fa-solid fa-comments"></i> استشارات مجانية</li>
+      <li class="feature-card"><i class="fa-solid fa-bolt"></i> تنفيذ سريع ودقيق</li>
+      <li class="feature-card"><i class="fa-solid fa-cubes"></i> أفضل الخامات العالمية</li>
+      <li class="feature-card"><i class="fa-solid fa-tools"></i> دعم ما بعد البيع</li>
     </ul>
   </section>
 
   <!-- Gallery -->
-  <section id="gallery" class="container gallery">
+  <section id="gallery" class="container gallery" data-aos="fade-up">
     <h2 class="section-title">أعمالنا</h2>
     <div class="gallery-grid"></div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="container">
+  <section id="contact" class="container" data-aos="fade-up">
     <h2 class="section-title">تواصل معنا</h2>
     <p>للحصول على استشارة فورية وعرض سعر احترافي، تواصل معنا عبر الواتساب:</p>
     <a class="whatsapp" href="https://wa.me/201003515207">01003515207</a>
@@ -90,13 +66,21 @@
   </section>
 
   <!-- Floating WhatsApp -->
-  <a href="https://wa.me/201003515207" class="whatsapp-float">💬</a>
+  <a href="https://wa.me/201003515207" class="whatsapp-float"><i class="fa-brands fa-whatsapp"></i></a>
 
   <!-- Footer -->
-  <footer class="container" style="text-align:center; padding:2rem 0; margin-top:2rem;">
+  <footer class="container" data-aos="fade-up">
+    <img src="images/logo-footer.png" alt="logo" class="footer-logo">
     <p>&copy; 2025 التقوي للألومنيوم. جميع الحقوق محفوظة.</p>
+    <div class="footer-links">
+      <a href="#about">عنّا</a> |
+      <a href="#gallery">أعمالنا</a> |
+      <a href="#contact">تواصل معنا</a>
+    </div>
   </footer>
 
   <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script> AOS.init({ once: true, duration: 800 }); </script>
 </body>
 </html>
