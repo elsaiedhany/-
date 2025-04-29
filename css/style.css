@@ -1,39 +1,80 @@
-/* =================== css/style.css =================== */
+/* css/style.css */
+/* === Variables & Reset === */
 :root {
-  --color-primary: #c0392b;
-  --color-secondary: #27ae60;
-  --color-bg: #fdfdfd;
-  --color-text: #222;
-  --color-light: #fff;
-  --transition-fast: 0.3s ease;
-  --max-width: 1200px;
+  --primary: #0a3d62;
+  --accent: #82ccdd;
+  --bg: #fefefe;
+  --text: #2d3436;
+  --light: rgba(255, 255, 255, 0.6);
 }
-* { box-sizing: border-box; margin:0; padding:0; }
-body {
-  font-family: 'Cairo', sans-serif;
-  direction: rtl;
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  overflow-x: hidden;
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', sans-serif; color: var(--text); background: var(--bg); }
+
+/* === Container === */
+.container { max-width: 1024px; padding: 0 1rem; margin: auto; }
+
+/* === Header & Nav === */
+.site-header { background: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.logo { color: #fff; font-size: 1.5rem; font-weight: bold; }
+.nav-menu a {
+  display: block; padding: .75rem 1rem; color: #fff;
+  transition: background .3s;
 }
-img { max-width:100%; display:block; }
-header { background: var(--color-primary); color: var(--color-light); padding:1rem 0; text-align:center; position:sticky; top:0; z-index:100; }
-.logo svg { display:block; margin:0 auto; }
-nav ul { display:flex; justify-content:center; gap:1.5rem; }
-nav a { padding:0.5rem 1rem; border-radius:4px; transition:background var(--transition-fast); }
-nav a:hover, nav a.active { background: rgba(255,255,255,0.2); }
-section { padding:3rem 1rem; max-width:var(--max-width); margin:0 auto; }
-.hero { text-align:center; position:relative; color: var(--color-light); }
-.hero picture img { width:100%; height:auto; }
-.hero-text { position:absolute; top:50%; left:50%; transform: translate(-50%,-50%); }
-.hero button { padding:0.75rem 2rem; background:var(--color-secondary); color: var(--color-light); border:none; border-radius:4px; cursor:pointer; transition:transform var(--transition-fast); }
-.hero button:hover { transform: translateY(-3px); }
-.about-large p { margin-bottom:1rem; }
-.main-gallery .images, .gallery .images { display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem; }
-.booking { background: var(--color-light); border-radius:8px; padding:2rem; box-shadow:0 4px 10px rgba(0,0,0,0.1); max-width:400px; margin:2rem auto; text-align:center; }
-.booking input { width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; margin-bottom:1rem; }
-.booking button { width:100%; padding:0.75rem; background:var(--color-primary); color: var(--color-light); border:none; border-radius:4px; cursor:pointer; transition:background var(--transition-fast); }
-.booking button:hover { background: #a82d24; }
-footer { background:#222; color: var(--color-light); padding:2rem 1rem; text-align:center; font-size:0.9rem; }
-@media(max-width:768px) { nav ul { flex-direction:column; gap:0.5rem; } }
+.nav-menu a:hover { background: var(--accent); color: var(--primary); }
+
+/* === Hamburger === */
+.hamburger span {
+  display: block; width: 25px; height: 3px; margin: 5px;
+  background: #fff; transition: .3s;
+}
+#menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+#menu-toggle.open span:nth-child(2) { opacity: 0; }
+#menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* === Sections === */
+.section-title {
+  font-size: 2rem; margin-bottom: 1rem; color: var(--primary);
+  position: relative; display: inline-block;
+}
+.section-title::after {
+  content: ''; display: block; width: 50px; height: 4px;
+  background: var(--accent); position: absolute; bottom: -8px; right: 0;
+}
+
+/* === Gallery Grid === */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.gallery-grid picture {
+  overflow: hidden; border-radius: .5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform .3s, box-shadow .3s;
+}
+.gallery-grid picture:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.gallery-grid img {
+  width: 100%; display: block;
+}
+
+/* === Button WhatsApp === */
+.btn-whatsapp {
+  display: inline-block; padding: 0.75rem 1.5rem;
+  background: var(--accent); color: var(--primary);
+  font-weight: bold; border-radius: .5rem;
+  box-shadow: 0 4px 12px var(--light);
+  transition: background .3s, transform .3s;
+}
+.btn-whatsapp:hover {
+  background: #74b9ff; transform: translateY(-3px);
+}
+
+/* === Responsive tweaks === */
+@media (max-width:768px) {
+  .nav-menu { flex-direction: column; }
+  .nav-menu.md\\:flex { display: none; }
+  .nav-menu.show { display: flex; }
+                              }
