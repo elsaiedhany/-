@@ -265,3 +265,20 @@ footer {
     display: flex;
   }
 }
+
+/* ترتيب الصورة داخل الهيدر */
+.site-header .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header img {
+  order: 2;
+  flex-basis: 100%;
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin: 10px 0 0;
+}
