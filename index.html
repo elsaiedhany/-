@@ -9,8 +9,8 @@
     <!-- Open Graph Tags -->
     <meta property="og:title" content="التقوي لأعمال الألومنيوم">
     <meta property="og:description" content="خبرة 20 عامًا في صناعة التميز - مطابخ، نوافذ، أبواب">
-    <meta property="og:image" content="https://elsaiedhany.github.io/-/images/og-image.webp">
-    <meta property="og:url" content="https://elsaiedhany.github.io/-/">
+    <meta property="og:image" content="https://example.com/images/og-image.webp">
+    <meta property="og:url" content="https://example.com">
     <meta property="og:locale" content="ar_EG">
     
     <!-- Fonts & Icons -->
@@ -38,7 +38,7 @@
     <header class="site-header">
         <div class="container">
             <a href="#hero" class="logo">
-                <img src="images/logo.webp" alt="شعار التقوي" width="120" height="60">
+                <img src="images/logo.webp" alt="شعار التقوي" width="120" height="60" loading="lazy">
             </a>
             <nav class="nav-menu">
                 <a href="#about">عنّا</a>
@@ -46,7 +46,7 @@
                 <a href="#gallery">أعمالنا</a>
                 <a href="#contact">تواصل</a>
             </nav>
-            <button class="hamburger">
+            <button class="hamburger" aria-label="فتح القائمة">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -76,7 +76,16 @@
                     <h3>مطابخ مودرن</h3>
                     <p>تصميمات عصرية بجودة فائقة</p>
                 </div>
-                <!-- Add more services -->
+                <div class="service-card">
+                    <i class="fas fa-window-maximize"></i>
+                    <h3>نوافذ UPVC</h3>
+                    <p>عازلة للصوت والحرارة</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-door-open"></i>
+                    <h3>أبواب مقاومة</h3>
+                    <p>أعلى مستويات الأمان</p>
+                </div>
             </div>
         </div>
     </section>
@@ -86,8 +95,9 @@
         <div class="container">
             <h2 class="section-title">معرض الأعمال</h2>
             <div class="gallery-grid">
-                <img src="images/kitchen1.webp" alt="مطبخ حديث" class="gallery-item">
-                <!-- Add more images -->
+                <img src="images/placeholder.jpg" data-src="images/kitchen1.webp" alt="مطبخ حديث" class="gallery-item lazy-image">
+                <img src="images/placeholder.jpg" data-src="images/window1.webp" alt="نوافذ UPVC" class="gallery-item lazy-image">
+                <img src="images/placeholder.jpg" data-src="images/door1.webp" alt="باب ألومنيوم" class="gallery-item lazy-image">
             </div>
         </div>
     </section>
@@ -101,7 +111,7 @@
                     <input type="text" placeholder="الاسم بالكامل" required>
                 </div>
                 <div class="form-group">
-                    <input type="tel" placeholder="رقم الهاتف" required>
+                    <input type="tel" placeholder="رقم الهاتف" required pattern="01[0-9]{9}">
                 </div>
                 <button type="submit" class="btn">إرسال</button>
             </form>
@@ -113,7 +123,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <img src="images/logo-footer.webp" alt="شعار التقوي" class="footer-logo">
+                    <img src="images/logo-footer.webp" alt="شعار التقوي" class="footer-logo" loading="lazy">
                 </div>
                 <div class="footer-section">
                     <h4>روابط سريعة</h4>
@@ -123,6 +133,7 @@
                 <div class="footer-section">
                     <h4>اتصل بنا</h4>
                     <a href="tel:01003515207">01003515207</a>
+                    <address>القاهرة، مصر</address>
                 </div>
             </div>
             <p class="copyright">&copy; 2024 التقوي للألومنيوم</p>
@@ -130,11 +141,11 @@
     </footer>
 
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/201003515207" class="whatsapp-btn">
+    <a href="https://wa.me/201003515207" class="whatsapp-btn" aria-label="تواصل عبر واتساب">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Scripts -->
     <script src="script.js"></script>
 </body>
-  </html>
+    </html>
