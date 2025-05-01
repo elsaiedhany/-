@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // توليد معرض الصور ديناميكيًا
   const galleryGrid = document.querySelector('.gallery-grid');
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 37; i++) {
     const item = document.createElement('div');
     item.className = 'gallery-item';
     item.innerHTML = `
