@@ -1,95 +1,147 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const gallery = document.querySelector('.gallery-grid');
-  const prefix = 'images/';
+  // إخفاء شاشة التحميل بعد تحميل الصفحة
+  window.addEventListener('load', () => {
+    document.getElementById('loading').close();
+  });
 
-  // Generate gallery images with lazy loading and fade-in
-  for (let i = 1; i <= 32; i++) {
-    const pic = document.createElement('picture');
-    pic.classList.add('gallery-item');
-    pic.innerHTML = `
-      <img src="${prefix}Kitchen${i}.jpg" alt="مطابخ ألومنيوم مودرن ${i}" loading="lazy">
+  // توليد معرض الصور ديناميكيًا
+  const galleryGrid = document.querySelector('.gallery-grid');
+  for (let i = 1; i <= 37; i++) {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `
+      <img 
+        data-src="images/Kitchen${i}.webp" 
+        alt="تصميم مطبخ ألومنيوم مودرن ${i}"
+        loading="lazy"
+      >
     `;
-    gallery.appendChild(pic);
+    galleryGrid.appendChild(item);
   }
 
-  // IntersectionObserver for fade-in effect
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
-  const onIntersect = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in');
-        observer.unobserve(entry.target);
-      }
-    });
-  };
-  const observer = new IntersectionObserver(onIntersect, observerOptions);
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    observer.observe(item);
-  });
-
-  // Smooth scroll for nav links
-  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // close mobile menu if open
-      const menuToggle = document.getElementById('menu-toggle');
-      const navMenu = document.getElementById('nav-menu');
-      if (menuToggle.classList.contains('open')) {
-        menuToggle.classList.remove('open');
-        navMenu.style.display = 'none';
-      }
-    });
-  });
-
-  // Hamburger toggle for mobile
+  // إدارة القائمة المتنقلة
   const menuToggle = document.getElementById('menu-toggle');
   const navMenu = document.getElementById('nav-menu');
+  
   menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('open');
-    if (navMenu.style.display === 'flex') {
-      navMenu.style.display = 'none';
-    } else {
-      navMenu.style.display = 'flex';
-      navMenu.style.flexDirection = 'column';
+    menuToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+  });
+
+  // إغلاق القائمة عند النقر خارجها
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-menu') && !e.target.closest('#menu-toggle')) {
+      navMenu.classList.remove('active');
+      menuToggle.classList.remove('active');
     }
   });
 
-  // Back-to-top button
-  const backBtn = document.createElement('button');
-  backBtn.id = 'back-to-top';
-  backBtn.innerHTML = '&#8679;';
-  document.body.appendChild(backBtn);
-  backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backBtn.classList.add('show');
-    } else {
-      backBtn.classList.remove('show');
-    }
+  // التمرير السلس للروابط
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+        navMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+      }
+    });
   });
 
-  // Lightbox for gallery images
+  // Lightbox مع إمكانية التنقل
   const lightbox = document.createElement('div');
   lightbox.id = 'lightbox';
   document.body.appendChild(lightbox);
-  lightbox.addEventListener('click', e => {
-    if (e.target !== e.currentTarget) return;
-    lightbox.classList.remove('active');
-  });
-  document.querySelectorAll('.gallery-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightbox.innerHTML = '';
-      const imgClone = img.cloneNode();
-      lightbox.appendChild(imgClone);
-      lightbox.classList.add('active');
-    });
+  
+  let currentImageIndex = 0;
+  const images = Array.from(document.querySelectorAll('.gallery-item img'));
+
+  function showImage(index) {
+    currentImageIndex = index;
+    lightbox.innerHTML = `
+      <img src="${images[index].src}" alt="${images[index].alt}">
+      <div class="lightbox-nav">
+        <button class="prev" aria-label="الصورة السابقة"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="next" aria-label="الصورة التالية"><i class="fa-solid fa-chevron-left"></i></button>
+      </div>
+      <div class="image-counter">${index + 1} / ${images.length}</div>
+    `;
+    
+    lightbox.querySelector('.prev').addEventListener('click', () => navigate(-1));
+    lightbox.querySelector('.next').addEventListener('click', () => navigate(1));
+    lightbox.classList.add('active');
+  }
+
+  function navigate(direction) {
+    currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+    showImage(currentImageIndex);
+  }
+
+  // فتح Lightbox عند النقر على الصورة
+  document.querySelectorAll('.gallery-item img').forEach((img, index) => {
+    img.addEventListener('click', () => showImage(index));
   });
 
+  // إغلاق Lightbox عند النقر خارج الصورة
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove('active');
+    }
+  });
+
+  // التنقل في Lightbox باستخدام لوحة المفاتيح
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('active')) {
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+    }
+  });
+
+  // Lazy Loading للصور مع Intersection Observer
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.onload = () => img.style.opacity = '1';
+        observer.unobserve(img);
+      }
+    });
+  }, {
+    rootMargin: '200px',
+    threshold: 0.1
+  });
+
+  document.querySelectorAll('.gallery-item img[data-src]').forEach(img => {
+    img.style.opacity = '0';
+    img.style.transition = 'opacity 0.5s ease';
+    observer.observe(img);
+  });
+
+  // إضافة تأثيرات AOS
+  AOS.init({
+    once: true,
+    duration: 800,
+    offset: 120,
+    easing: 'ease-in-out-quad'
+  });
+
+  // تحسينات الأداء
+  let timeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      AOS.refresh();
+    }, 100);
+  });
+
+  // تحسينات الوصول
+  document.querySelectorAll('img').forEach(img => {
+    if (!img.alt) img.alt = 'صورة توضيحية لشركة التقوي للألومنيوم';
+  });
 });
