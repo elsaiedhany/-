@@ -1,147 +1,100 @@
+// Enhanced JavaScript
 document.addEventListener('DOMContentLoaded', () => {
-  // إخفاء شاشة التحميل بعد تحميل الصفحة
-  window.addEventListener('load', () => {
-    document.getElementById('loading').close();
-  });
-
-  // توليد معرض الصور ديناميكيًا
-  const galleryGrid = document.querySelector('.gallery-grid');
-  for (let i = 1; i <= 37; i++) {
-    const item = document.createElement('div');
-    item.className = 'gallery-item';
-    item.innerHTML = `
-      <img 
-        data-src="images/Kitchen${i}.webp" 
-        alt="تصميم مطبخ ألومنيوم مودرن ${i}"
-        loading="lazy"
-      >
-    `;
-    galleryGrid.appendChild(item);
-  }
-
-  // إدارة القائمة المتنقلة
-  const menuToggle = document.getElementById('menu-toggle');
-  const navMenu = document.getElementById('nav-menu');
+  // Initialize lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
   
-  menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-  });
-
-  // إغلاق القائمة عند النقر خارجها
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-menu') && !e.target.closest('#menu-toggle')) {
-      navMenu.classList.remove('active');
-      menuToggle.classList.remove('active');
-    }
-  });
-
-  // التمرير السلس للروابط
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-      }
+  document.querySelectorAll('[data-lightbox]').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.showModal();
     });
   });
 
-  // Lightbox مع إمكانية التنقل
-  const lightbox = document.createElement('div');
-  lightbox.id = 'lightbox';
-  document.body.appendChild(lightbox);
-  
-  let currentImageIndex = 0;
-  const images = Array.from(document.querySelectorAll('.gallery-item img'));
+  lightbox.querySelector('.close-lightbox').addEventListener('click', () => {
+    lightbox.close();
+  });
 
-  function showImage(index) {
-    currentImageIndex = index;
-    lightbox.innerHTML = `
-      <img src="${images[index].src}" alt="${images[index].alt}">
-      <div class="lightbox-nav">
-        <button class="prev" aria-label="الصورة السابقة"><i class="fa-solid fa-chevron-right"></i></button>
-        <button class="next" aria-label="الصورة التالية"><i class="fa-solid fa-chevron-left"></i></button>
-      </div>
-      <div class="image-counter">${index + 1} / ${images.length}</div>
-    `;
+  // Form Validation
+  const form = document.getElementById('contactForm');
+  const phoneInput = document.getElementById('phone');
+  
+  phoneInput.addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/[^0-9+]/, '');
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
     
-    lightbox.querySelector('.prev').addEventListener('click', () => navigate(-1));
-    lightbox.querySelector('.next').addEventListener('click', () => navigate(1));
-    lightbox.classList.add('active');
-  }
-
-  function navigate(direction) {
-    currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
-    showImage(currentImageIndex);
-  }
-
-  // فتح Lightbox عند النقر على الصورة
-  document.querySelectorAll('.gallery-item img').forEach((img, index) => {
-    img.addEventListener('click', () => showImage(index));
-  });
-
-  // إغلاق Lightbox عند النقر خارج الصورة
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      lightbox.classList.remove('active');
+    const formData = {
+      name: form.name.value.trim(),
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim()
+    };
+    
+    // Validate form
+    let isValid = true;
+    
+    if(formData.name.length < 3) {
+      showError(form.name, 'الاسم يجب أن يكون 3 أحرف على الأقل');
+      isValid = false;
     }
-  });
-
-  // التنقل في Lightbox باستخدام لوحة المفاتيح
-  document.addEventListener('keydown', (e) => {
-    if (lightbox.classList.contains('active')) {
-      if (e.key === 'ArrowLeft') navigate(-1);
-      if (e.key === 'ArrowRight') navigate(1);
-      if (e.key === 'Escape') lightbox.classList.remove('active');
+    
+    if(!/^01[0125][0-9]{8}$/.test(formData.phone)) {
+      showError(form.phone, 'رقم هاتف غير صحيح');
+      isValid = false;
     }
-  });
-
-  // Lazy Loading للصور مع Intersection Observer
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.onload = () => img.style.opacity = '1';
-        observer.unobserve(img);
+    
+    if(isValid) {
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        showSuccess('تم إرسال الرسالة بنجاح!');
+        form.reset();
+      } catch (error) {
+        showError(null, 'حدث خطأ أثناء الإرسال');
       }
-    });
-  }, {
-    rootMargin: '200px',
-    threshold: 0.1
+    }
   });
 
-  document.querySelectorAll('.gallery-item img[data-src]').forEach(img => {
-    img.style.opacity = '0';
-    img.style.transition = 'opacity 0.5s ease';
-    observer.observe(img);
-  });
+  function showError(field, message) {
+    if(field) {
+      const errorElement = field.nextElementSibling;
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      field.classList.add('error');
+    } else {
+      const messageElement = document.getElementById('formMessage');
+      messageElement.textContent = message;
+      messageElement.classList.add('error');
+      messageElement.style.display = 'block';
+    }
+  }
 
-  // إضافة تأثيرات AOS
-  AOS.init({
-    once: true,
-    duration: 800,
-    offset: 120,
-    easing: 'ease-in-out-quad'
-  });
+  function showSuccess(message) {
+    const messageElement = document.getElementById('formMessage');
+    messageElement.textContent = message;
+    messageElement.classList.remove('error');
+    messageElement.classList.add('success');
+    messageElement.style.display = 'block';
+    setTimeout(() => messageElement.style.display = 'none', 5000);
+  }
 
-  // تحسينات الأداء
-  let timeout;
-  window.addEventListener('scroll', () => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      AOS.refresh();
-    }, 100);
-  });
+  // Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('Service Worker registered'))
+      .catch(err => console.error('SW registration failed:', err));
+  }
+});
 
-  // تحسينات الوصول
-  document.querySelectorAll('img').forEach(img => {
-    if (!img.alt) img.alt = 'صورة توضيحية لشركة التقوي للألومنيوم';
-  });
+// Smooth scroll for keyboard users
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    }, 1000);
+  }
 });
