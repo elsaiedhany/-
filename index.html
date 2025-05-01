@@ -1,151 +1,151 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التقوي لأعمال الألومنيوم | مطابخ - نوافذ - أبواب</title>
-    <meta name="description" content="شركة التقوي المتخصصة في أعمال الألومنيوم - مطابخ، نوافذ، أبواب بجودة عالية وضمان 35 سنة - خبرة 20 عامًا في السوق المصري">
-    
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="التقوي لأعمال الألومنيوم">
-    <meta property="og:description" content="خبرة 20 عامًا في صناعة التميز - مطابخ، نوافذ، أبواب">
-    <meta property="og:image" content="https://example.com/images/og-image.webp">
-    <meta property="og:url" content="https://example.com">
-    <meta property="og:locale" content="ar_EG">
-    
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>التقوي لأعمال الألومنيوم</title>
+  <meta name="description" content="شركة التقوي المتخصصة في أعمال الألومنيوم - مطابخ، نوافذ، أبواب بجودة عالية وضمان 35 سنة">
+  <link rel="preload" href="images/Kitchen1.webp" as="image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 </head>
 <body>
-    <!-- Cookie Banner -->
-    <div id="cookie-consent" class="cookie-banner">
-        <div class="container">
-            <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك. <a href="/privacy">المزيد من التفاصيل</a></p>
-            <div class="cookie-buttons">
-                <button id="accept-cookies" class="btn btn-small">موافق</button>
-                <button id="reject-cookies" class="btn btn-small btn-outline">رفض</button>
-            </div>
-        </div>
+
+  <!-- Loading Dialog -->
+  <dialog id="loading">
+    <div class="loader"></div>
+    <p>جاري التحميل...</p>
+  </dialog>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">التقوي للألومنيوم</h1>
+      <button id="menu-toggle" class="hamburger" aria-label="فتح القائمة">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu" aria-label="القائمة الرئيسية">
+        <a href="#about">عنّا</a>
+        <a href="#services">خدماتنا</a>
+        <a href="#gallery">أعمالنا</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <a href="#hero" class="logo">
-                <img src="images/logo.webp" alt="شعار التقوي" width="120" height="60" loading="lazy">
-            </a>
-            <nav class="nav-menu">
-                <a href="#about">عنّا</a>
-                <a href="#services">خدماتنا</a>
-                <a href="#gallery">أعمالنا</a>
-                <a href="#contact">تواصل</a>
-            </nav>
-            <button class="hamburger" aria-label="فتح القائمة">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <!-- Hero Section -->
+  <section class="hero" style="background: url('images/Kitchen1.webp') center/cover no-repeat;">
+    <div class="hero-content" data-aos="zoom-in">
+      <h1 class="hero-title">التقوي للألومنيوم</h1>
+      <p class="hero-subtitle">خبرة 20 عامًا في صناعة التميز</p>
+      <a href="#contact" class="btn-primary">احصل على استشارة مجانية</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="container" data-aos="fade-up">
+    <h2 class="section-title">لماذا نحن الاختيار الأمثل؟</h2>
+    <p>بتاريخ عريق يمتد لأكثر من عقدين، نقدم حلولاً مبتكرة في عالم الألومنيوم بدقة هندسية وجودة تنافسية.</p>
+    <ul class="features">
+      <li class="feature-card"><i class="fa-solid fa-certificate"></i> ضمان 35 سنة</li>
+      <li class="feature-card"><i class="fa-solid fa-clock-rotate-left"></i> خدمة 24/7</li>
+      <li class="feature-card"><i class="fa-solid fa-paint-roller"></i> تشكيلات مبتكرة</li>
+      <li class="feature-card"><i class="fa-solid fa-shield-halved"></i> مواد مقاومة للعوامل الجوية</li>
+      <li class="feature-card"><i class="fa-solid fa-screwdriver-wrench"></i> تركيب محترف</li>
+      <li class="feature-card"><i class="fa-solid fa-hand-holding-heart"></i> دعم فني متكامل</li>
+    </ul>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services container" data-aos="fade-up">
+    <h2 class="section-title">خدماتنا المميزة</h2>
+    <div class="service-cards">
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-kitchen-set"></i>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-content">
-            <h1>التقوي للألومنيوم</h1>
-            <p>خبرة 20 عامًا في صناعة التميز</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn">استشارة مجانية</a>
-                <a href="#gallery" class="btn-outline">أعمالنا</a>
-            </div>
+        <h3>مطابخ مودرن</h3>
+        <p>تصميمات عصرية بمواد عالية الجودة</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-door-open"></i>
         </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="section">
-        <div class="container">
-            <h2 class="section-title">خدماتنا</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-kitchen-set"></i>
-                    <h3>مطابخ مودرن</h3>
-                    <p>تصميمات عصرية بجودة فائقة</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-window-maximize"></i>
-                    <h3>نوافذ UPVC</h3>
-                    <p>عازلة للصوت والحرارة</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-door-open"></i>
-                    <h3>أبواب مقاومة</h3>
-                    <p>أعلى مستويات الأمان</p>
-                </div>
-            </div>
+        <h3>أبواب مقاومة</h3>
+        <p>أبواب أمنية بمقاييس دولية</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-window-maximize"></i>
         </div>
-    </section>
-
-    <!-- Gallery -->
-    <section id="gallery" class="section">
-        <div class="container">
-            <h2 class="section-title">معرض الأعمال</h2>
-            <div class="gallery-grid">
-                <img src="images/placeholder.jpg" data-src="images/kitchen1.webp" alt="مطبخ حديث" class="gallery-item lazy-image">
-                <img src="images/placeholder.jpg" data-src="images/window1.webp" alt="نوافذ UPVC" class="gallery-item lazy-image">
-                <img src="images/placeholder.jpg" data-src="images/door1.webp" alt="باب ألومنيوم" class="gallery-item lazy-image">
-            </div>
+        <h3>نوافذ ذكية</h3>
+        <p>نوافذ عازلة للصوت والحرارة</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-stairs"></i>
         </div>
-    </section>
+        <h3>سلالم متطورة</h3>
+        <p>تصاميم هندسية فريدة</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title">تواصل معنا</h2>
-            <form class="contact-form">
-                <div class="form-group">
-                    <input type="text" placeholder="الاسم بالكامل" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" placeholder="رقم الهاتف" required pattern="01[0-9]{9}">
-                </div>
-                <button type="submit" class="btn">إرسال</button>
-            </form>
-        </div>
-    </section>
+  <!-- Gallery -->
+  <section id="gallery" class="container gallery" data-aos="fade-up">
+    <h2 class="section-title">أحدث أعمالنا</h2>
+    <div class="gallery-grid"></div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <img src="images/logo-footer.webp" alt="شعار التقوي" class="footer-logo" loading="lazy">
-                </div>
-                <div class="footer-section">
-                    <h4>روابط سريعة</h4>
-                    <a href="#about">عن الشركة</a>
-                    <a href="#services">الخدمات</a>
-                </div>
-                <div class="footer-section">
-                    <h4>اتصل بنا</h4>
-                    <a href="tel:01003515207">01003515207</a>
-                    <address>القاهرة، مصر</address>
-                </div>
-            </div>
-            <p class="copyright">&copy; 2024 التقوي للألومنيوم</p>
-        </div>
-    </footer>
+  <!-- Contact Section -->
+  <section id="contact" class="container" data-aos="fade-up">
+    <h2 class="section-title">تواصل مع خبرائنا الآن</h2>
+    <div class="contact-box">
+      <a class="whatsapp" href="https://wa.me/201003515207">
+        <i class="fa-brands fa-whatsapp"></i>
+        01003515207
+      </a>
+      <div class="phone-info">
+        <i class="fa-solid fa-phone-volume"></i>
+        <span>اتصل مباشرة: 01003515207</span>
+      </div>
+    </div>
+  </section>
 
-    <!-- WhatsApp Button -->
-    <a href="https://wa.me/201003515207" class="whatsapp-btn" aria-label="تواصل عبر واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/201003515207" class="whatsapp-float" aria-label="تواصل عبر واتساب">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+  <!-- Footer -->
+  <footer class="container">
+    <img src="images/logo-footer.webp" alt="شعار التقوي للألومنيوم" class="footer-logo">
+    <p class="copyright">&copy; 2024 التقوي للألومنيوم. جميع الحقوق محفوظة.</p>
+    <div class="footer-links">
+      <a href="#about"><i class="fa-solid fa-building"></i> عن الشركة</a>
+      <a href="#gallery"><i class="fa-solid fa-images"></i> معرض الأعمال</a>
+      <a href="#contact"><i class="fa-solid fa-comments"></i> قنوات التواصل</a>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      once: true,
+      duration: 800,
+      offset: 120,
+    });
+
+    // Show loading initially
+    document.getElementById('loading').showModal();
+    window.addEventListener('load', () => {
+      document.getElementById('loading').close();
+    });
+  </script>
 </body>
-    </html>
+          </html>
