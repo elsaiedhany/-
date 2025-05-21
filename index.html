@@ -1,239 +1,185 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصنع مطابخ ألومنيوم | [اسم المصنع]</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Add any custom styles here if Tailwind isn't enough */
-        body {
-            font-family: 'Arial', sans-serif; /* Or a more modern font */
-            direction: rtl; /* Default direction for Arabic */
-            text-align: right;
-        }
-        .english-content {
-            direction: ltr;
-            text-align: left;
-        }
-        /* Smooth scroll for navigation */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
+    <title>شركة التقوى للمطابخ - تصميم وتنفيذ مطابخ عصرية</title>
+    <meta name="description" content="شركة التقوى رائدة في تصميم وتنفيذ أحدث المطابخ العصرية والفاخرة. جودة عالية، تصاميم مبتكرة، وأسعار تنافسية. اطلب مطبخ أحلامك الآن!">
+    <meta name="keywords" content="مطابخ, تصميم مطابخ, شركة مطابخ, التقوى للمطابخ, مطابخ مودرن, مطابخ خشب, مطابخ اكريليك, مصر">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
-    <div class="fixed top-4 left-4 z-50">
-        <button id="lang-switcher" class="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition">English</button>
-    </div>
+    <link rel="stylesheet" href="style.css">
+    
+    </head>
+<body>
 
-    <header class="bg-white shadow-md sticky top-0 z-40">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-blue-800">
-                <span class="ar-content">مصنع [اسم المصنع]</span>
-                <span class="en-content hidden"> [Factory Name]</span>
-            </div>
+    <a href="https://wa.me/201003515207?text=أرغب%20في%20الاستفسار%20عن%20تصميم%20مطبخ" class="whatsapp-float" target="_blank" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 32 32" xml:space="preserve" role="img" aria-label="أيقونة واتساب"><path fill-rule="evenodd" clip-rule="evenodd" fill="#ffffff" d="M16.21,4.46c-6.36,0-11.53,5.17-11.53,11.53c0,2.04,0.54,3.96,1.48,5.66L4.5,25.5l4.01-1.68c1.62,0.82,3.45,1.29,5.37,1.29h0.01c6.36,0,11.53-5.17,11.53-11.53S22.57,4.46,16.21,4.46z M22.37,19.61c-0.21,0.59-1.15,1.08-1.59,1.11c-0.41,0.02-0.81,0.02-1.28-0.08c-0.63-0.14-1.36-0.44-2.39-0.89c-1.33-0.58-2.52-1.43-3.59-2.51c-1.04-1.04-1.88-2.24-2.46-3.56c-0.44-1.01-0.74-1.73-0.88-2.36c-0.11-0.47-0.1-0.87-0.08-1.28c0.03-0.44,0.52-1.38,1.11-1.59c0.28-0.1,0.59-0.11,0.83-0.11c0.26,0,0.51,0.03,0.73,0.08c0.44,0.1,0.68,0.15,0.92,0.49c0.28,0.39,0.47,0.92,0.53,1.05c0.06,0.13,0.08,0.3,0.03,0.46c-0.06,0.17-0.12,0.31-0.24,0.45l-0.44,0.53c-0.14,0.15-0.28,0.34-0.14,0.61s0.45,0.79,0.91,1.24c0.75,0.75,1.64,1.36,2.69,1.73c0.27,0.1,0.45,0.08,0.61-0.07l0.53-0.44c0.14-0.12,0.28-0.18,0.45-0.24c0.16-0.05,0.32-0.03,0.46,0.03c0.13,0.06,0.66,0.25,1.05,0.53C22.23,18.93,22.48,19.18,22.37,19.61z"></path></svg>
+    </a>
 
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="#home" class="text-gray-600 hover:text-blue-600 transition ar-content">الرئيسية</a><a href="#home" class="text-gray-600 hover:text-blue-600 transition en-content hidden">Home</a></li>
-                <li><a href="#about" class="text-gray-600 hover:text-blue-600 transition ar-content">عن المصنع</a><a href="#about" class="text-gray-600 hover:text-blue-600 transition en-content hidden">About Us</a></li>
-                <li><a href="#gallery" class="text-gray-600 hover:text-blue-600 transition ar-content">معرض الأعمال</a><a href="#gallery" class="text-gray-600 hover:text-blue-600 transition en-content hidden">Gallery</a></li>
-                 <li><a href="#materials" class="text-gray-600 hover:text-blue-600 transition ar-content">الخامات والتصنيع</a><a href="#materials" class="text-gray-600 hover:text-blue-600 transition en-content hidden">Materials & Process</a></li>
-                <li><a href="#services" class="text-gray-600 hover:text-blue-600 transition ar-content">خدماتنا</a><a href="#services" class="text-blue-600 hover:text-blue-600 transition en-content hidden">Services</a></li>
-                <li><a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition ar-content">اتصل بنا</a><a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition en-content hidden">Contact Us</a></li>
-                 <li><a href="/admin" class="text-gray-600 hover:text-red-600 transition ar-content">لوحة الإدارة</a><a href="/admin" class="text-gray-600 hover:text-red-600 transition en-content hidden">Admin Panel</a></li>
-            </ul>
-
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </nav>
-
-        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
-            <ul class="flex flex-col items-center py-4 space-y-2">
-                <li><a href="#home" class="block text-gray-600 hover:text-blue-600 transition ar-content">الرئيسية</a><a href="#home" class="block text-gray-600 hover:text-blue-600 transition en-content hidden">Home</a></li>
-                <li><a href="#about" class="block text-gray-600 hover:text-blue-600 transition ar-content">عن المصنع</a><a href="#about" class="block text-gray-600 hover:text-blue-600 transition en-content hidden">About Us</a></li>
-                <li><a href="#gallery" class="block text-gray-600 hover:text-blue-600 transition ar-content">معرض الأعمال</a><a href="#gallery" class="block text-gray-600 hover:text-blue-600 transition en-content hidden">Gallery</a></li>
-                 <li><a href="#materials" class="block text-gray-600 hover:text-blue-600 transition ar-content">الخامات والتصنيع</a><a href="#materials" class="block text-gray-600 hover:text-blue-600 transition en-content hidden">Materials & Process</a></li>
-                <li><a href="#services" class="block text-gray-600 hover:text-blue-600 transition ar-content">خدماتنا</a><a href="#services" class="block text-blue-600 hover:text-blue-600 transition en-content hidden">Services</a></li>
-                <li><a href="#contact" class="block bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition ar-content">اتصل بنا</a><a href="#contact" class="block bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition en-content hidden">Contact Us</a></li>
-                <li><a href="/admin" class="block text-gray-600 hover:text-red-600 transition ar-content">لوحة الإدارة</a><a href="/admin" class="block text-gray-600 hover:text-red-600 transition en-content hidden">Admin Panel</a></li>
-            </ul>
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">شركة التقوى <span class="logo-accent">للمطابخ</span></span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="#about-us-section">من نحن</a></li>
+                    <li><a href="#featured-work">أعمالنا</a></li>
+                    <li><a href="#booking-section">اطلب الآن</a></li>
+                    <li><a href="#contact-us-section">اتصل بنا</a></li>
+                    </ul>
+                <button class="menu-toggle" aria-label="فتح/إغلاق القائمة">
+                    <span class="hamburger-icon"></span>
+                </button>
+            </nav>
         </div>
     </header>
 
     <main>
-        <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-white" style="background-image: url('https://placehold.co/1920x1080/000000/FFFFFF?text=Placeholder+Kitchen+Image');">
-            <div class="absolute inset-0 bg-black opacity-50"></div>
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 ar-content">مصنع [اسم المصنع] لمطابخ الألومنيوم</h1>
-                 <h1 class="text-4xl md:text-6xl font-bold mb-4 en-content hidden">[Factory Name] for Aluminum Kitchens</h1>
-                <p class="text-xl md:text-2xl mb-8 ar-content">جودة، تصميم، وابتكار في عالم المطابخ الحديثة</p>
-                <p class="text-xl md:text-2xl mb-8 en-content hidden">Quality, Design, and Innovation in Modern Kitchens</p>
-                <a href="#gallery" class="bg-blue-600 text-white text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition ar-content">تصفح معرض أعمالنا</a>
-                 <a href="#gallery" class="bg-blue-600 text-white text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition en-content hidden">Browse Our Gallery</a>
-            </div>
+        <section id="hero" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content-container">
+                <div class="hero-content">
+                    <h1>مطابخ <span class="accent-text">التقوى</span>: حيث يلتقي الإبداع بالجودة</h1>
+                    <p>نحول رؤيتك لمطبخ الأحلام إلى حقيقة ملموسة بأجود الخامات وأحدث التصاميم العصرية التي تناسب ذوقك الرفيع ومساحتك الفريدة.</p>
+                    <a href="#booking-section" class="btn btn-primary btn-lg">اكتشف تصاميمنا واطلب مطبخك</a>
+                </div>
+                </div>
         </section>
 
-        <section id="about" class="py-16 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 ar-content">عن المصنع</h2>
-                <h2 class="text-3xl font-bold text-center mb-8 en-content hidden">About Us</h2>
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0">
-                        <img src="https://placehold.co/600x400/e5e7eb/1f2937?text=Factory+Image" alt="صورة المصنع" class="rounded-lg shadow-lg w-full">
+        <section id="about-us-section" class="py-6 bg-white">
+            <div class="container">
+                <div class="section-title">
+                    <h2>لماذا تختار مطابخ <span class="accent-text">التقوى</span>؟</h2>
+                    <p>خبرتنا تمتد لسنوات في إتقان فن صناعة المطابخ التي تجمع بين الأناقة والعملية.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <img src="images/icon-quality.png" alt="أيقونة جودة عالية" class="feature-icon">
+                        <h3>جودة لا تُساوم</h3>
+                        <p>نستخدم أجود أنواع الأخشاب والإكسسوارات العالمية لضمان مطبخ يدوم معك العمر كله.</p>
                     </div>
-                    <div class="md:w-1/2">
-                        <p class="text-lg leading-relaxed mb-4 ar-content">
-                            هنا يمكنك إضافة نبذة تفصيلية عن تاريخ المصنع، خبرته الطويلة في مجال تصنيع مطابخ الألومنيوم، القيم التي يؤمن بها، والرؤية المستقبلية. اذكروا النقاط التي تميز المصنع عن غيره.
-                        </p>
-                         <p class="text-lg leading-relaxed mb-4 en-content hidden english-content">
-                            Here you can add a detailed overview of the factory's history, its long experience in aluminum kitchen manufacturing, its values, and future vision. Mention the points that distinguish the factory from others.
-                        </p>
-                        <p class="text-lg leading-relaxed ar-content">
-                            يمكنكم التحدث عن فريق العمل المتخصص والماهر، واستخدام أحدث التقنيات في التصنيع لضمان أعلى مستويات الجودة والدقة.
-                        </p>
-                         <p class="text-lg leading-relaxed en-content hidden english-content">
-                            You can talk about the specialized and skilled team, and the use of the latest manufacturing technologies to ensure the highest levels of quality and precision.
-                        </p>
+                    <div class="feature-item">
+                        <img src="images/icon-design.png" alt="أيقونة تصاميم مبتكرة" class="feature-icon">
+                        <h3>تصاميم فريدة وعصرية</h3>
+                        <p>نواكب أحدث خطوط الموضة في عالم المطابخ ونقدم لك تصاميم مبتكرة تناسب كل الأذواق.</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="images/icon-experience.png" alt="أيقونة خبرة واحترافية" class="feature-icon">
+                        <h3>خبرة واحترافية</h3>
+                        <p>فريق عمل متخصص من المصممين والفنيين لتقديم استشارات وتنفيذ على أعلى مستوى.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="gallery" class="py-16 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 ar-content">معرض أعمالنا</h2>
-                <h2 class="text-3xl font-bold text-center mb-8 en-content hidden">Our Gallery</h2>
-                <p class="text-center text-lg mb-12 ar-content">تصفح أحدث وأجمل تصميمات مطابخ الألومنيوم التي قمنا بتنفيذها.</p>
-                 <p class="text-center text-lg mb-12 en-content hidden english-content">Browse the latest and most beautiful aluminum kitchen designs we have executed.</p>
-
-                <div class="text-center mb-8">
-                    </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placehold.co/600x400/e5e7eb/1f2937?text=Kitchen+1" alt="مطبخ ألومنيوم 1" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2 ar-content">مطبخ بتصميم عصري</h3>
-                             <h3 class="text-xl font-semibold mb-2 en-content hidden">Modern Design Kitchen</h3>
-                            <p class="text-gray-600 ar-content">وصف مختصر للمطبخ، الألوان المستخدمة، أو أي تفاصيل مميزة.</p>
-                             <p class="text-gray-600 en-content hidden english-content">Brief description of the kitchen, colors used, or any special features.</p>
-                            <a href="#" class="text-blue-600 hover:underline mt-4 block ar-content">عرض التفاصيل</a>
-                             <a href="#" class="text-blue-600 hover:underline mt-4 block en-content hidden">View Details</a>
-                        </div>
-                    </div>
-
-                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placehold.co/600x400/e5e7eb/1f2937?text=Kitchen+2" alt="مطبخ ألومنيوم 2" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2 ar-content">مطبخ بتصميم كلاسيكي</h3>
-                             <h3 class="text-xl font-semibold mb-2 en-content hidden">Classic Design Kitchen</h3>
-                            <p class="text-gray-600 ar-content">وصف مختصر للمطبخ، الألوان المستخدمة، أو أي تفاصيل مميزة.</p>
-                             <p class="text-gray-600 en-content hidden english-content">Brief description of the kitchen, colors used, or any special features.</p>
-                            <a href="#" class="text-blue-600 hover:underline mt-4 block ar-content">عرض التفاصيل</a>
-                             <a href="#" class="text-blue-600 hover:underline mt-4 block en-content hidden">View Details</a>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placehold.co/600x400/e5e7eb/1f2937?text=Kitchen+3" alt="مطبخ ألومنيوم 3" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2 ar-content">مطبخ بألوان جريئة</h3>
-                             <h3 class="text-xl font-semibold mb-2 en-content hidden">Kitchen with Bold Colors</h3>
-                            <p class="text-gray-600 ar-content">وصف مختصر للمطبخ، الألوان المستخدمة، أو أي تفاصيل مميزة.</p>
-                             <p class="text-gray-600 en-content hidden english-content">Brief description of the kitchen, colors used, or any special features.</p>
-                            <a href="#" class="text-blue-600 hover:underline mt-4 block ar-content">عرض التفاصيل</a>
-                             <a href="#" class="text-blue-600 hover:underline mt-4 block en-content hidden">View Details</a>
-                        </div>
-                    </div>
+        <section id="featured-work" class="py-6 bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>شاهد روعة <span class="accent-text">أعمالنا</span></h2>
+                    <p>تصفح مجموعة مختارة من أحدث المطابخ التي قمنا بتنفيذها لعملائنا.</p>
                 </div>
-
-                <div class="text-center mt-12">
-                     <a href="#" class="bg-blue-600 text-white text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition ar-content">عرض كل المشاريع</a>
-                     <a href="#" class="bg-blue-600 text-white text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition en-content hidden">View All Projects</a>
+                <div class="portfolio-grid" id="portfolioGrid">
+                    </div>
+            </div>
+        </section>
+        
+        <section id="booking-section" class="py-6 bg-white">
+            <div class="container">
+                <div class="section-title">
+                    <h2>ابدأ تصميم مطبخ أحلامك <span class="accent-text">اليوم</span>!</h2>
+                    <p>املأ النموذج التالي وسيقوم م. هاني الفقي بالتواصل معك في أقرب وقت لمناقشة التفاصيل وتحديد موعد للمعاينه.</p>
                 </div>
+                <form id="bookingForm" class="booking-form">
+                    <div class="form-group">
+                        <label for="name">الاسم بالكامل:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">رقم الموبايل:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">العنوان (اختياري):</label>
+                        <input type="text" id="address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">ملاحظات أو تفاصيل إضافية:</label>
+                        <textarea id="notes" name="notes" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">إرسال طلب المعاينة</button>
+                </form>
+                <div id="form-message" class="form-message" role="status"></div>
             </div>
         </section>
 
-         <section id="materials" class="py-16 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 ar-content">الخامات وعملية التصنيع</h2>
-                <h2 class="text-3xl font-bold text-center mb-8 en-content hidden">Materials & Process</h2>
-                <div class="flex flex-col md:flex-row items-center">
-                     <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0 ar-content">
-                        <h3 class="text-2xl font-semibold mb-4">جودة الخامات تبدأ من هنا</h3>
-                        <p class="text-lg leading-relaxed mb-4">
-                            نستخدم أجود أنواع قطاعات الألومنيوم والإكسسوارات لضمان متانة وشكل جمالي يدوم لسنوات. نتعامل مع أفضل الموردين لضمان أعلى مستويات الجودة في كل قطعة.
-                        </p>
-                         <h3 class="text-2xl font-semibold mb-4">عملية تصنيع دقيقة</h3>
-                        <p class="text-lg leading-relaxed">
-                           تمر عملية تصنيع مطابخ الألومنيوم لدينا بعدة مراحل دقيقة، بدءاً من التصميم الهندسي، مروراً بالتقطيع والتشكيل باستخدام أحدث الماكينات، وصولاً إلى التجميع والتشطيب النهائي على يد فنيين متخصصين. كل خطوة تخضع لرقابة جودة صارمة.
-                        </p>
-                    </div>
-                    <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0 en-content hidden english-content">
-                         <h3 class="text-2xl font-semibold mb-4">Quality Materials Start Here</h3>
-                        <p class="text-lg leading-relaxed mb-4">
-                            We use the finest types of aluminum profiles and accessories to ensure durability and aesthetic appeal that lasts for years. We deal with the best suppliers to guarantee the highest quality standards in every piece.
-                        </p>
-                         <h3 class="text-2xl font-semibold mb-4">Precise Manufacturing Process</h3>
-                        <p class="text-lg leading-relaxed">
-                           Our aluminum kitchen manufacturing process goes through several precise stages, starting from engineering design, through cutting and shaping using the latest machinery, to final assembly and finishing by specialized technicians. Every step is subject to strict quality control.
-                        </p>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="https://placehold.co/600x400/e5e7eb/1f2937?text=Materials+Process+Image" alt="الخامات والتصنيع" class="rounded-lg shadow-lg w-full">
-                    </div>
+        <section id="testimonials" class="py-6 bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>ماذا يقول <span class="accent-text">عملاؤنا</span>؟</h2>
                 </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-item">
+                        <p>"شركة التقوى للمطابخ حولت مطبخي القديم لتحفة فنية! جودة عالية وخدمة ممتازة. شكرًا م. هاني."</p>
+                        <h4>- عميل سعيد من القاهرة</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"التزام بالمواعيد ودقة في التنفيذ. التصميم كان أفضل مما توقعت. أنصح بهم بشدة."</p>
+                        <h4>- عميلة راضية من الجيزة</h4>
+                    </div>
+                     </div>
             </div>
         </section>
 
-        <section id="services" class="py-16 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 ar-content">خدماتنا</h2>
-                 <h2 class="text-3xl font-bold text-center mb-8 en-content hidden">Our Services</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                        <div class="text-4xl text-blue-600 mb-4">🛠️</div> <h3 class="text-xl font-semibold mb-2 ar-content">تصميم وتفصيل</h3>
-                         <h3 class="text-xl font-semibold mb-2 en-content hidden">Design & Customization</h3>
-                        <p class="text-gray-600 ar-content">نقدم خدمات تصميم مطابخ ألومنيوم تتناسب مع مساحة واحتياجات مطبخك.</p>
-                         <p class="text-gray-600 en-content hidden english-content">We offer aluminum kitchen design services that fit your kitchen space and needs.</p>
+
+        <section id="contact-us-section" class="py-6 contact-section">
+             <div class="contact-overlay"></div>
+            <div class="container contact-content-container">
+                <div class="section-title">
+                    <h2 class="text-light">تواصل <span class="accent-text">معنا</span></h2>
+                    <p class="text-light">نحن هنا للإجابة على جميع استفساراتك ومساعدتك في تصميم مطبخك المثالي.</p>
+                </div>
+                <div class="contact-details">
+                    <div class="contact-info-item">
+                        <span class="contact-icon">📞</span>
+                        <h3>م. هاني الفقي</h3>
+                        <p><a href="tel:01003515207" class="text-light">01003515207</a></p>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                         <div class="text-4xl text-blue-600 mb-4">🏭</div> <h3 class="text-xl font-semibold mb-2 ar-content">تصنيع بجودة عالية</h3>
-                         <h3 class="text-xl font-semibold mb-2 en-content hidden">High-Quality Manufacturing</h3>
-                        <p class="text-gray-600 ar-content">نستخدم أحدث التقنيات وأجود الخامات لضمان منتج نهائي متين وأنيق.</p>
-                         <p class="text-gray-600 en-content hidden english-content">We use the latest technologies and finest materials to ensure a durable and elegant final product.</p>
+                    <div class="contact-info-item">
+                         <span class="contact-icon">📧</span>
+                        <h3>البريد الإلكتروني</h3>
+                        <p><a href="mailto:info@altaqwakitchens.com"  class="text-light">info@altaqwakitchens.com</a> (مثال)</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                         <div class="text-4xl text-blue-600 mb-4">🔧</div> <h3 class="text-xl font-semibold mb-2 ar-content">تركيب احترافي</h3>
-                         <h3 class="text-xl font-semibold mb-2 en-content hidden">Professional Installation</h3>
-                        <p class="text-gray-600 ar-content">فريق عمل متخصص يضمن تركيب المطبخ بدقة وسرعة.</p>
-                         <p class="text-gray-600 en-content hidden english-content">A specialized team ensures accurate and fast kitchen installation.</p>
+                    <div class="contact-info-item">
+                        <span class="contact-icon">📍</span>
+                        <h3>موقعنا</h3>
+                        <p class="text-light"> [اكتب عنوان الشركة هنا] - <a href="#gmap-placeholder" class="text-light link-underline"> شاهد على الخريطة</a></p>
                     </div>
-                     <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                         <div class="text-4xl text-blue-600 mb-4">✨</div> <h3 class="text-xl font-semibold mb-2 ar-content">صيانة وخدمة ما بعد البيع</h3>
-                         <h3 class="text-xl font-semibold mb-2 en-content hidden">Maintenance & After-Sales Service</h3>
-                        <p class="text-gray-600 ar-content">نضمن لك راحة البال من خلال خدمات الصيانة والدعم بعد التركيب.</p>
-                         <p class="text-gray-600 en-content hidden english-content">We ensure your peace of mind through maintenance and support services after installation.</p>
+                     <div class="contact-info-item">
+                        <span class="contact-icon">🕒</span>
+                        <h3>مواعيد العمل</h3>
+                        <p class="text-light">يومياً من 10 صباحاً حتى 10 مساءً (ما عدا الجمعة)</p>
                     </div>
                 </div>
-            </div>
+                 </div>
         </section>
+    </main>
 
-         <section id="why-choose-us" class="py-16 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-12 ar-content">لماذا تختار مصنع [اسم المصنع]؟</h2>
-                 <h2 class="text-3xl font-bold text-center mb-12 en-content hidden">Why Choose [Factory Name]?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 text-blue-600 text-3xl mr-4 ar-content">✅</div>
-                         <div class="flex-shrink-0 text-blue-600 text-3xl mr-4 en-content hidden english-content">✅</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2 ar-content">خبرة طويلة في السوق المصري</h3>
-                             <h3 class="text-xl font-semibold mb-2 en-content hidden">Long Experience in the Egyptian Market</h3>
-                            <p class="text-gray-600 ar-content">سنوات من العمل في مجال مطابخ الألومنيوم تضمن لك جودة وثقة.</p>
-                             <p class="text-gray-600 en-content hidden english-content">Years of work in the aluminum kitchen field guarantee you quality and trust.</p>
-                        </div>
-             
+    <footer class="site-footer-bottom bg-dark text-light py-4">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <p>&copy; <span id="currentYear"></span> شركة التقوى للمطابخ. تصميم وتطوير بواسطة <a href="#" class="link-underline text-light">اسمك/شركتك</a> (اختياري).</p>
+                <div class="social-links">
+                    </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
