@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- قائمة التنقل المتجاوبة (Mobile Navigation) ---
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const siteHeader = document.querySelector('.site-header');
@@ -8,196 +7,166 @@ document.addEventListener('DOMContentLoaded', function() {
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            menuToggle.classList.toggle('active'); // لتغيير شكل أيقونة الهمبرجر
-            // منع التمرير عند فتح القائمة (اختياري)
-            // document.body.classList.toggle('no-scroll', navLinks.classList.contains('active'));
+            menuToggle.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
         });
     }
 
-    // إغلاق القائمة عند الضغط على رابط فيها (لصفحات الـ Single Page)
     if (navLinks) {
         navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                     menuToggle.classList.remove('active');
-                    // document.body.classList.remove('no-scroll');
+                    document.body.style.overflow = '';
                 }
             });
         });
     }
     
-    // --- تغيير خلفية الهيدر عند التمرير (اختياري) ---
     // window.addEventListener('scroll', function() {
     //     if (siteHeader) {
-    //         if (window.scrollY > 50) {
-    //             siteHeader.classList.add('scrolled');
-    //         } else {
-    //             siteHeader.classList.remove('scrolled');
-    //         }
+    //         siteHeader.classList.toggle('scrolled', window.scrollY > 50);
     //     }
     // });
 
-
-    // --- تحديث سنة الحقوق تلقائيًا في الفوتر ---
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // --- جلب وعرض صور الأعمال الديناميكية ---
     const portfolioGrid = document.getElementById('portfolioGrid');
-
     if (portfolioGrid) {
-        portfolioGrid.innerHTML = '<p class="loading-message">جاري تحميل أحدث الأعمال...</p>';
+        portfolioGrid.innerHTML = '<p class="loading-message">جاري تحميل أحدث إبداعاتنا...</p>';
         fetchPortfolioImages();
     }
 
     async function fetchPortfolioImages() {
-        // !!! هام جداً يا سعيد: 
-        // !!! استبدل '/api/altaqwa/images' بالرابط الفعلي لنقطة النهاية (API endpoint)
-        // !!! التي ستنشئها في لوحة التحكم الخاصة بك (الباك إند).
-        const apiUrl = '/api/altaqwa/images'; // <--- عدّل هذا الرابط ليتناسب مع الباك إند عندك
-
-        // مثال لبيانات صور وهمية لاختبار الواجهة الأمامية إذا لم يكن الباك إند جاهزاً بعد
-        // يمكنك حذف هذا الجزء أو التعليق عليه عندما يكون الباك إند جاهزاً
+        const apiUrl = '/api/altaqwa/kitchen-gallery'; //  !!! عدّل هذا الرابط لباك إندك !!!
         const mockImages = [
-             { imageUrl: "https://via.placeholder.com/400x300/2c3e50/d4af37?text=مطبخ+مثال+1", caption: "تصميم مطبخ عصري - مثال" },
-             { imageUrl: "https://via.placeholder.com/400x300/d4af37/2c3e50?text=مطبخ+مثال+2", caption: "مطبخ كلاسيكي فاخر - مثال" },
-             { imageUrl: "https://via.placeholder.com/400x300/343a40/ffffff?text=مطبخ+مثال+3", caption: "استغلال المساحات الصغيرة - مثال" }
+             { imageUrl: "https://via.placeholder.com/450x350/222831/d4af37?text=مطبخ+التقوى+1", caption: "تصميم مودرن بخامات أوروبية" },
+             { imageUrl: "https://via.placeholder.com/450x350/d4af37/222831?text=مطبخ+التقوى+2", caption: "مطبخ كلاسيكي بلمسة عصرية" },
+             { imageUrl: "https://via.placeholder.com/450x350/333333/ffffff?text=مطبخ+التقوى+3", caption: "استغلال ذكي للمساحات المحدودة" },
+             { imageUrl: "https://via.placeholder.com/450x350/503922/f0f0f0?text=مطبخ+التقوى+4", caption: "مطبخ خشبي بتفاصيل أنيقة" }
         ];
-        // --- نهاية البيانات الوهمية ---
 
         try {
-            // لإلغاء استخدام البيانات الوهمية واستخدام الـ API الفعلي:
-            // 1. احذف أو علّق متغير mockImages أعلاه.
-            // 2. أزل التعليق من الأسطر التالية التي تقوم بعمل fetch:
-            /*
+            // لاستخدام البيانات الوهمية (احذف هذا عند ربط الـ API الحقيقي):
+            const images = await new Promise(resolve => setTimeout(() => resolve(mockImages), 1200));
+            
+            /* // لإلغاء البيانات الوهمية واستخدام الـ API الفعلي (أزل التعليق):
             const response = await fetch(apiUrl);
-            if (!response.ok) {
-                throw new Error(`فشل الاتصال بالخادم: ${response.status} ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`فشل الاتصال بالخادم: ${response.status}`);
             const images = await response.json();
             */
 
-            // لاستخدام البيانات الوهمية مؤقتاً (احذف هذا السطر عند استخدام الـ API الحقيقي):
-            const images = await new Promise(resolve => setTimeout(() => resolve(mockImages), 1500)); // محاكاة تأخير الشبكة
-
-
-            if (!Array.isArray(images)) {
-                throw new Error("البيانات المستلمة من الخادم ليست بالتنسيق المتوقع (مصفوفة).");
-            }
+            if (!Array.isArray(images)) throw new Error("بيانات الصور غير صالحة.");
             renderPortfolioImages(images);
-
         } catch (error) {
-            console.error("فشل في جلب أو عرض صور الأعمال:", error);
-            if (portfolioGrid) {
-                 portfolioGrid.innerHTML = `<p class="error-message">عفواً، لم نتمكن من تحميل صور الأعمال حالياً.<br> (${error.message})</p>`;
-            }
+            console.error("فشل تحميل صور الأعمال:", error);
+            if (portfolioGrid) portfolioGrid.innerHTML = `<p class="error-message">عفواً، خطأ في تحميل الصور.<br> (${error.message})</p>`;
         }
     }
 
     function renderPortfolioImages(images) {
         if (!portfolioGrid) return;
-        portfolioGrid.innerHTML = ''; // إفراغ رسالة التحميل أو المحتوى القديم
+        portfolioGrid.innerHTML = ''; 
 
         if (images.length === 0) {
-            portfolioGrid.innerHTML = '<p class="text-center" style="padding: 2rem 0;">لا توجد أعمال لعرضها حالياً. ترقبوا جديدنا!</p>';
+            portfolioGrid.innerHTML = '<p class="text-center" style="padding: 2rem 0;">لا توجد أعمال مميزة لعرضها حالياً.</p>';
             return;
         }
 
-        images.forEach(imageInfo => {
+        images.forEach((imageInfo, index) => {
             const portfolioItem = document.createElement('div');
-            portfolioItem.classList.add('portfolio-item');
-            // تأثير ظهور تدريجي للعناصر (اختياري)
-            // portfolioItem.style.opacity = '0'; 
-            // portfolioItem.style.transform = 'translateY(20px)';
-            // portfolioItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            portfolioItem.classList.add('portfolio-item', 'fade-in-on-scroll');
+            // إضافة تأخير متزايد لعناصر البورتفوليو لمزيد من الجمالية
+            portfolioItem.style.setProperty('--animation-delay', `${index * 150}ms`);
 
 
             const imgElement = document.createElement('img');
             imgElement.src = imageInfo.imageUrl; 
-            imgElement.alt = imageInfo.caption || "أحد أعمال شركة التقوى للمطابخ";
+            imgElement.alt = imageInfo.caption || "مطبخ من تصميم شركة التقوى";
+            imgElement.loading = "lazy"; // تفعيل التحميل الكسول للصور
             
-            imgElement.onload = () => {
-                imgElement.classList.add('loaded');
-                // لتأثير الظهور التدريجي
-                // portfolioItem.style.opacity = '1';
-                // portfolioItem.style.transform = 'translateY(0)';
-            }
-            imgElement.onerror = () => {
-                imgElement.alt = "فشل تحميل الصورة";
-                // يمكنك هنا وضع صورة احتياطية إذا أردت
-                // imgElement.src = 'images/placeholder-image-error.png'; 
-                // imgElement.classList.add('loaded'); // لتحريك التأثير حتى لو كانت صورة خطأ
-            }
+            imgElement.onload = () => imgElement.classList.add('loaded');
+            imgElement.onerror = () => { 
+                imgElement.alt = "خطأ في تحميل الصورة";
+                // يمكنك وضع صورة placeholder للخطأ هنا
+            };
 
             const captionElement = document.createElement('div');
             captionElement.classList.add('portfolio-caption');
-            captionElement.textContent = imageInfo.caption || "تصميم فريد من التقوى";
+            captionElement.textContent = imageInfo.caption || "تصميم مطابخ التقوى";
 
             portfolioItem.appendChild(imgElement);
             portfolioItem.appendChild(captionElement);
             portfolioGrid.appendChild(portfolioItem);
         });
+        // إعادة تفعيل مراقب الـ Intersection Observer بعد إضافة العناصر الجديدة
+        observeFadeInElements();
     }
 
-    // --- التعامل مع نموذج الحجز ---
     const bookingForm = document.getElementById('bookingForm');
     const formMessage = document.getElementById('form-message');
 
     if (bookingForm && formMessage) {
         bookingForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // منع الإرسال التقليدي للنموذج
-            formMessage.innerHTML = ''; // مسح أي رسائل سابقة
-            formMessage.className = 'form-message'; // إعادة تعيين الكلاس
+            event.preventDefault();
+            formMessage.innerHTML = ''; 
+            formMessage.className = 'form-message'; 
 
-            // جمع بيانات النموذج (يمكنك إضافة المزيد من التحقق هنا)
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const notes = document.getElementById('notes').value.trim();
-
+            
             if (!name || !phone) {
-                formMessage.textContent = 'يرجى إدخال الاسم ورقم الموبايل.';
+                formMessage.textContent = 'الاسم ورقم الموبايل حقول إلزامية.';
                 formMessage.classList.add('error');
                 return;
             }
             
-            // هنا، ستقوم بإرسال هذه البيانات إلى الواجهة الخلفية (الباك إند)
-            // التي ستنشئها لمعالجة طلبات الحجز (مثلاً عبر fetch API).
-            // حالياً، سنعرض رسالة نجاح وهمية.
-
-            console.log("بيانات النموذج:", { name, phone, address, notes });
-            formMessage.textContent = 'شكراً لك! تم إرسال طلبك بنجاح. سيقوم م. هاني بالتواصل معك قريباً.';
+            // محاكاة إرسال ناجح
+            console.log("بيانات الطلب:", { name, phone, address: document.getElementById('address').value.trim(), notes: document.getElementById('notes').value.trim() });
+            formMessage.textContent = 'شكراً لاهتمامك! تم استلام طلبك بنجاح، وسيقوم م. هاني الفقي بالتواصل معك خلال 24 ساعة.';
             formMessage.classList.add('success');
-            bookingForm.reset(); // إفراغ النموذج بعد الإرسال الناجح (الوهمي)
+            bookingForm.reset(); 
 
-            // مثال لكيفية إرسال البيانات للباك إند (عندما يكون جاهزاً):
+            // لإرسال فعلي للباك إند (عندما يكون جاهزًا)
             /*
-            fetch('/api/submit-booking', { // استبدل بالـ API endpoint الصحيح
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, phone, address, notes })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    formMessage.textContent = 'تم إرسال طلبك بنجاح!';
-                    formMessage.classList.add('success');
-                    bookingForm.reset();
-                } else {
-                    formMessage.textContent = data.message || 'حدث خطأ أثناء إرسال الطلب.';
-                    formMessage.classList.add('error');
-                }
-            })
-            .catch(error => {
-                console.error('Error submitting form:', error);
-                formMessage.textContent = 'حدث خطأ في الشبكة. يرجى المحاولة مرة أخرى.';
-                formMessage.classList.add('error');
-            });
+            fetch('/api/booking-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })
+            // ... إلخ
             */
         });
     }
+
+    // --- Intersection Observer للأنيميشن عند التمرير ---
+    function observeFadeInElements() {
+        const fadeInElements = document.querySelectorAll('.fade-in-up, .fade-in-on-scroll');
+        
+        if (!fadeInElements.length) return;
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible'); // CSS class for visible state
+                    if(entry.target.classList.contains('fade-in-up')) entry.target.classList.add('visible'); // old class for hero
+
+                    observerInstance.unobserve(entry.target); // لإيقاف المراقبة بعد ظهور العنصر مرة واحدة
+                }
+            });
+        }, {
+            threshold: 0.1 // النسبة المئوية لظهور العنصر في الشاشة لتفعيل الأنيميشن
+        });
+
+        fadeInElements.forEach(el => {
+            // تطبيق تأخير الأنيميشن إذا كان محدداً في data-delay
+            const delay = el.dataset.delay || el.style.getPropertyValue('--animation-delay');
+            if (delay) {
+                el.style.transitionDelay = delay;
+            }
+            observer.observe(el);
+        });
+    }
+    observeFadeInElements(); // استدعاء أولي للمراقب
 
 });
