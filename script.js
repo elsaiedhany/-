@@ -33,21 +33,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadTranslations() {
         try {
-            // تأكد أن ملف translations.json موجود في نفس مستوى index.html
             const response = await fetch('translations.json'); 
             if (!response.ok) {
                 console.error('فشل تحميل ملف الترجمة. الحالة:', response.status);
-                // يمكنك عرض رسالة للمستخدم أو استخدام لغة افتراضية مدمجة إذا فشل التحميل
-                // حالياً، سيكمل بدون ترجمة إذا فشل التحميل
+                setLanguageDisplayFallback(); 
                 return;
             }
             translations = await response.json();
             setLanguage(currentLanguage); 
         } catch (error) {
             console.error('خطأ في تحميل أو تحليل ملف الترجمة:', error);
+            setLanguageDisplayFallback(); 
         }
     }
 
+    function setLanguageDisplayFallback() {
+        if (languageToggleButton) {
+            const langToggleTextElement = languageToggleButton.querySelector('span');
+            if (langToggleTextElement) {
+                langToggleTextElement.textContent = currentLanguage === 'ar' ? 'EN' : 'AR';
+            }
+        }
+        document.documentElement.lang = currentLanguage;
+        document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+    }
+    
     function setLanguage(lang) {
         currentLanguage = lang; 
         localStorage.setItem('altaqwaLanguage', currentLanguage); 
@@ -55,15 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
 
         if (Object.keys(translations).length === 0) {
-            console.warn("ملف الترجمة لم يتم تحميله أو فارغ. لن يتم تطبيق الترجمة.");
-            // تحديث نص زر اللغة حتى لو فشلت باقي الترجمات
-            if (languageToggleButton) {
-                const langToggleTextElement = languageToggleButton.querySelector('span');
-                if (langToggleTextElement) {
-                    langToggleTextElement.textContent = currentLanguage === 'ar' ? 'EN' : 'AR';
-                }
-            }
-            return; // الخروج من الدالة إذا لم يتم تحميل الترجمات
+            console.warn("ملف الترجمة لم يتم تحميله أو فارغ. لن يتم تطبيق الترجمة الكاملة.");
+            setLanguageDisplayFallback(); 
+            return; 
         }
 
         document.querySelectorAll('[data-translate-key]').forEach(element => {
@@ -85,8 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (key === "meta_description" && element.tagName === 'META' && element.name === 'description') {
                     element.content = translations[currentLanguage][key];
                 }
-            } else {
-                // console.warn(`مفتاح الترجمة '${key}' غير موجود للغة '${currentLanguage}'`);
             }
         });
         
@@ -102,28 +104,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (languageToggleButton) {
         languageToggleButton.addEventListener('click', () => {
             const newLang = currentLanguage === 'ar' ? 'en' : 'ar';
-            if (Object.keys(translations).length > 0) { // فقط قم بتبديل اللغة إذا تم تحميل الترجمات
+            if (Object.keys(translations).length > 0) { 
                 setLanguage(newLang);
             } else {
-                // إذا لم يتم تحميل الترجمات، حاول تحميلها مرة أخرى ثم قم بالتبديل
                 loadTranslations().then(() => {
                     if (Object.keys(translations).length > 0) {
                          setLanguage(newLang);
                     } else {
-                        // تغيير نص الزر يدوياً كحل احتياطي إذا فشل كل شيء
-                        const langToggleTextElement = languageToggleButton.querySelector('span');
-                        if (langToggleTextElement) {
-                            langToggleTextElement.textContent = newLang === 'ar' ? 'AR' : 'EN';
-                        }
-                         document.documentElement.lang = newLang;
-                         document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+                        currentLanguage = newLang; 
+                        localStorage.setItem('altaqwaLanguage', currentLanguage);
+                        setLanguageDisplayFallback();
                     }
                 });
             }
         });
     }
     
-    // --- قائمة التنقل المتجاوبة ---
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
 
@@ -137,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navLinks) {
         navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                if (this.id === 'language-toggle-link' || this.id === 'theme-toggle') return;
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                     menuToggle.classList.remove('active');
@@ -146,14 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // --- تحديث سنة الحقوق ---
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // --- جلب وعرض صور الأعمال ---
-    const portfolioGrid = document.getElementById('portfolioGrid'); // تأكد أن هذا العنصر موجود في HTML
+    const portfolioGrid = document.getElementById('portfolioGrid'); 
 
     if (portfolioGrid) {
         portfolioGrid.innerHTML = '<p class="loading-message">جاري تحميل أحدث إبداعاتنا...</p>';
@@ -161,42 +156,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function fetchPortfolioImages() {
-        // !!! هام جداً يا سعيد: 
-        // !!! استبدل 'YOUR_PHONE_IP_OR_SERVER_URL' بعنوان IP الخاص بهاتفك (الذي يشغل Termux)
-        // !!! أو عنوان السيرفر الحقيقي إذا رفعت الباك إند على استضافة.
-        // !!! وتأكد أن البورت (5000) صحيح أو غيره إذا استخدمت بورت مختلف.
-        const backendBaseUrl = 'http://YOUR_PHONE_IP_OR_SERVER_URL:5000'; // <--- عدّل هذا
+        // !!! تم تعديل السطر التالي بناءً على الـ IP الذي ظهر لك !!!
+        const backendBaseUrl = 'http://192.168.1.4:5000'; // <--- هذا هو الـ IP من مخرجاتك
         const apiUrl = `${backendBaseUrl}/api/get-my-kitchen-images`; 
 
-        // بيانات وهمية للاختبار إذا لم يكن الباك إند جاهزاً (علّقها أو احذفها عند ربط الباك إند الفعلي)
-        const mockImages = [ 
-             { imageUrl: "https://via.placeholder.com/450x350/121212/d4af37?text=مطبخ+وهمي+1", caption: "وصف تجريبي لمطبخ وهمي 1" },
-             { imageUrl: "https://via.placeholder.com/450x350/d4af37/121212?text=مطبخ+وهمي+2", caption: "وصف تجريبي لمطبخ وهمي 2" }
-        ];
-        // --- نهاية البيانات الوهمية ---
-
         try {
-            // --- لاستخدام الـ API الحقيقي، أزل التعليق من الأسطر التالية ---
             const response = await fetch(apiUrl);
             if (!response.ok) {
                 let errorData = { message: `فشل الاتصال بالخادم لجلب الصور: ${response.status}` };
                 try {
                     const errJson = await response.json();
                     if (errJson && errJson.error) errorData.message = errJson.error;
-                } catch (e) { /* لا مشكلة إذا لم يكن الخطأ JSON */ }
+                } catch (e) { /* لا مشكلة */ }
                 throw new Error(errorData.message);
             }
             const images = await response.json(); 
-            // --- نهاية جزء الـ API الحقيقي ---
-
-            // --- لاستخدام البيانات الوهمية مؤقتاً (علّق أو احذف هذا السطر عند استخدام الـ API الحقيقي) ---
-            // const images = await new Promise(resolve => setTimeout(() => resolve(mockImages), 500));
-            // --- نهاية استخدام البيانات الوهمية ---
             
             if (!Array.isArray(images)) {
                 throw new Error("البيانات المستلمة من الخادم بخصوص الصور ليست بالتنسيق المتوقع (مصفوفة).");
             }
-            renderPortfolioImages(images, backendBaseUrl); // تمرير backendBaseUrl هنا
+            renderPortfolioImages(images, backendBaseUrl);
 
         } catch (error) {
             console.error("فشل في جلب أو عرض صور الأعمال:", error);
@@ -206,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function renderPortfolioImages(images, backendBaseUrl) { // استقبال backendBaseUrl
+    function renderPortfolioImages(images, backendBaseUrl) { 
         if (!portfolioGrid) return;
         portfolioGrid.innerHTML = ''; 
 
@@ -219,37 +198,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const portfolioItem = document.createElement('div');
             portfolioItem.classList.add('portfolio-item', 'fade-in-on-scroll');
             portfolioItem.style.setProperty('--animation-delay', `${index * 150}ms`);
-
             const imgElement = document.createElement('img');
-            
-            // تعديل هام: التأكد من أن imageUrl هو مسار نسبي من الباك إند
-            // إذا كان imageUrl بالفعل يحتوي على /uploads/filename.jpg
-            // فإننا نحتاج لجمع المسار الكامل باستخدام backendBaseUrl
-            // أما إذا كان الباك إند يرجع مساراً كاملاً، فهذا السطر لا يحتاج تعديل كبير
-            if (imageInfo.imageUrl.startsWith('/uploads/')) { // نفترض أن الباك إند يرجع مساراً يبدأ بـ /uploads/
+            if (imageInfo.imageUrl && imageInfo.imageUrl.startsWith('/uploads/')) { 
                 imgElement.src = `${backendBaseUrl}${imageInfo.imageUrl}`;
             } else {
-                // إذا كان الباك إند يرجع رابطاً كاملاً للصورة (مثلاً من خدمة تخزين سحابي)
-                imgElement.src = imageInfo.imageUrl; 
+                imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png'; 
             }
-            
             imgElement.alt = imageInfo.caption || "مطبخ من تصميم شركة التقوى";
             imgElement.loading = "lazy"; 
-            
-            imgElement.onload = () => {
-                imgElement.classList.add('loaded');
-            }
+            imgElement.onload = () => imgElement.classList.add('loaded');
             imgElement.onerror = () => { 
                 imgElement.alt = "حدث خطأ أثناء تحميل هذه الصورة";
-                // يمكنك هنا وضع صورة placeholder للخطأ إذا أردت
-                // مثال: imgElement.src = 'images/image-error-placeholder.png'; // صورة محلية
-                // imgElement.classList.add('loaded'); 
+                imgElement.src = 'images/placeholder-kitchen-error.png'; 
+                imgElement.classList.add('loaded'); 
             };
-
             const captionElement = document.createElement('div');
             captionElement.classList.add('portfolio-caption');
             captionElement.textContent = imageInfo.caption || "تصميم مطابخ التقوى";
-
             portfolioItem.appendChild(imgElement);
             portfolioItem.appendChild(captionElement);
             portfolioGrid.appendChild(portfolioItem);
@@ -257,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observeFadeInElements(); 
     }
 
-    // --- التعامل مع نموذج الحجز ---
     const bookingForm = document.getElementById('bookingForm');
     const formMessage = document.getElementById('form-message');
 
@@ -266,66 +230,34 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); 
             formMessage.innerHTML = ''; 
             formMessage.className = 'form-message'; 
-
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
             const notes = document.getElementById('notes').value.trim();
-            
             if (!name || !phone) {
                 formMessage.textContent = 'يرجى إدخال الاسم ورقم الموبايل، فهما حقلان إلزاميان.';
                 formMessage.classList.add('error');
                 return;
             }
-            
-            // محاكاة إرسال ناجح للبيانات (لأغراض العرض فقط حالياً)
             console.log("بيانات طلب الحجز:", { name, phone, address, notes });
             formMessage.textContent = 'شكراً جزيلاً لك! تم استلام طلبك بنجاح. سيقوم م. هاني الفقي بالتواصل معك في أقرب فرصة خلال 24 ساعة.';
             formMessage.classList.add('success');
             bookingForm.reset(); 
-
-            // لإرسال فعلي للباك إند (عندما يكون جاهزًا):
             /*
             const formData = { name, phone, address, notes };
-            const bookingApiUrl = 'http://YOUR_PHONE_IP_OR_SERVER_URL:5000/api/submit-booking-request'; // <--- عدّل هذا
+            const bookingApiUrl = 'http://192.168.1.4:5000/api/submit-booking-request'; // <--- عدّل هذا عند عمل API الحجز
             fetch(bookingApiUrl, { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errData => {
-                        throw new Error(errData.message || `خطأ من الخادم: ${response.status}`);
-                    }).catch(() => { 
-                        throw new Error(`خطأ من الخادم: ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) { 
-                    formMessage.textContent = data.message || 'تم إرسال طلبك بنجاح!';
-                    formMessage.classList.add('success');
-                    bookingForm.reset();
-                } else {
-                    formMessage.textContent = data.message || 'حدث خطأ أثناء إرسال الطلب.';
-                    formMessage.classList.add('error');
-                }
-            })
-            .catch(error => {
-                console.error('Error submitting booking form:', error);
-                formMessage.textContent = `حدث خطأ في الشبكة أو الاتصال بالخادم. يرجى المحاولة مرة أخرى. (${error.message})`;
-                formMessage.classList.add('error');
-            });
+            // ... (باقي معالجة الإرسال)
             */
         });
     }
 
-    // --- Intersection Observer للأنيميشن عند التمرير ---
     function observeFadeInElements() {
         const fadeInElements = document.querySelectorAll('.fade-in-up, .fade-in-on-scroll');
-        
         if (!("IntersectionObserver" in window)) {
             fadeInElements.forEach(el => {
                 el.classList.add('is-visible');
@@ -333,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             return;
         }
-        
         const observer = new IntersectionObserver((entries, observerInstance) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -342,21 +273,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     observerInstance.unobserve(entry.target); 
                 }
             });
-        }, {
-            threshold: 0.05 
-        });
-
+        }, { threshold: 0.05 });
         fadeInElements.forEach(el => {
             const delay = el.dataset.delay || el.style.getPropertyValue('--animation-delay');
-            if (delay) {
-                el.style.transitionDelay = delay;
-            }
+            if (delay) el.style.transitionDelay = delay;
             observer.observe(el);
         });
     }
     
-    // استدعاء تحميل الترجمة عند بدء تشغيل الصفحة
-    // هذا سيقوم بتطبيق اللغة ثم استدعاء observeFadeInElements داخلياً بعد تطبيق الترجمة
     loadTranslations(); 
-
 });
