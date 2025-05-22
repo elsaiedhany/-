@@ -1,10 +1,10 @@
-// افترض أن هذا هو ملف main.js أو script.js الخاص بك بالكامل
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- التحكم في الوضع الفاتح/الغامق ---
     const themeToggleButton = document.getElementById('theme-toggle');
     const themeIconMoon = document.getElementById('theme-icon-moon');
     const themeIconSun = document.getElementById('theme-icon-sun');
+    // قيمة data-theme الافتراضية من HTML لو موجودة، أو 'dark'
     let preferredTheme = localStorage.getItem('altaqwaTheme') || document.documentElement.getAttribute('data-theme') || 'dark';
 
     function applyTheme(theme) {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if(themeIconSun) themeIconSun.style.display = 'none';
         }
     }
-    applyTheme(preferredTheme);
+    applyTheme(preferredTheme); // تطبيق الثيم المفضل عند تحميل الصفحة
 
     if (themeToggleButton) {
         themeToggleButton.addEventListener('click', () => {
@@ -29,26 +29,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- نظام الترجمة ---
     const languageToggleButton = document.getElementById('language-toggle-btn');
-    let currentLanguage = localStorage.getItem('altaqwaLanguage') || 'ar';
+    let currentLanguage = localStorage.getItem('altaqwaLanguage') || document.documentElement.lang || 'ar'; // الأولوية لـ localStorage ثم لغة الـ HTML ثم العربية
     let translations = {}; // سيتم ملؤها من translations.json
 
     async function loadTranslations() {
         try {
-            const response = await fetch('translations.json'); // تأكد أن مسار هذا الملف صحيح
+            // تأكد أن مسار ملف الترجمة صحيح بالنسبة لموقع ملف الـ HTML
+            const response = await fetch('translations.json');
             if (!response.ok) {
-                console.error('فشل تحميل ملف الترجمة. الحالة:', response.status, response.statusText);
-                setLanguageDisplayFallback(); // عرض الأزرار بلغة افتراضية
-                return; // لا يمكن المتابعة بدون ملف الترجمة
+                console.error(`فشل تحميل ملف الترجمة. الحالة: ${response.status} ${response.statusText}. المسار المطلوب: ${response.url}`);
+                setLanguageDisplayFallback();
+                return;
             }
             translations = await response.json();
             setLanguage(currentLanguage); // طبق اللغة الحالية بعد تحميل الترجمات
         } catch (error) {
             console.error('خطأ في تحميل أو تحليل ملف الترجمة:', error);
-            setLanguageDisplayFallback(); // عرض الأزرار بلغة افتراضية
+            setLanguageDisplayFallback();
         }
     }
 
     function setLanguageDisplayFallback() {
+        // هذه الدالة مسؤولة عن تحديث لغة زر التبديل واتجاه الصفحة إذا فشل تحميل الترجمات
         if (languageToggleButton) {
             const langToggleTextElement = languageToggleButton.querySelector('span');
             if (langToggleTextElement) {
@@ -57,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         document.documentElement.lang = currentLanguage;
         document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-        // قد تحتاج لتحديث أي عناصر أخرى تعتمد على اللغة هنا إذا فشل تحميل الترجمة
     }
 
     function setLanguage(lang) {
@@ -67,33 +68,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
 
         if (Object.keys(translations).length === 0 || !translations[currentLanguage]) {
-            console.warn(`ملف الترجمة لم يتم تحميله أو أن اللغة '${lang}' غير موجودة. لن يتم تطبيق الترجمة الكاملة.`);
+            console.warn(`ملف الترجمة لم يتم تحميله أو أن اللغة '${lang}' غير موجودة. سيتم عرض النصوص الافتراضية.`);
             setLanguageDisplayFallback();
-             // إذا كان portfolioGrid موجوداً، حاول تحديث نصوصه الافتراضية هنا أيضاً
-            if (portfolioGrid && portfolioGrid.querySelector('.loading-message')) {
-                portfolioGrid.querySelector('.loading-message').textContent = lang === 'ar' ? 'جاري تحميل أحدث إبداعاتنا...' : 'Loading our latest creations...';
-            }
-            if (portfolioGrid && portfolioGrid.querySelector('.no-portfolio-items-text')) {
-                portfolioGrid.querySelector('.no-portfolio-items-text').textContent = lang === 'ar' ? 'لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!' : 'No featured works to display currently. Stay tuned for our new additions!';
-            }
+            // تحديث النصوص التي قد تكون افتراضية في HTML إذا فشلت الترجمة
+            updateDynamicTextFallbacks(lang);
             return;
         }
 
         document.querySelectorAll('[data-translate-key]').forEach(element => {
             const key = element.getAttribute('data-translate-key');
-            if (translations[currentLanguage] && translations[currentLanguage][key] !== undefined) {
-                const translationValue = translations[currentLanguage][key];
-                if (element.innerHTML.includes('<span') || element.innerHTML.includes('<br')) {
-                    // إذا كان المحتوى معقد (يحتوي على HTML)، استبدل المحتوى بالكامل
+            const translationValue = translations[currentLanguage]?.[key];
+
+            if (translationValue !== undefined) {
+                if (element.hasAttribute('data-translate-html')) { // للترجمات التي تحتوي على HTML
                     element.innerHTML = translationValue;
                 } else if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     if (element.placeholder !== undefined && element.hasAttribute('data-translate-placeholder')) {
                         element.placeholder = translationValue;
-                    } else if (element.value !== undefined && element.type !== 'submit' && element.type !== 'button') { // لا تترجم قيمة أزرار الإرسال هنا
-                        // element.value = translationValue; // كن حذراً مع ترجمة قيم الحقول
                     }
+                    // يمكن إضافة ترجمة للـ value إذا لزم الأمر لأنواع معينة من الـ input
                 } else {
-                    // لمعظم العناصر النصية البسيطة
                     element.textContent = translationValue;
                 }
 
@@ -105,35 +99,54 @@ document.addEventListener('DOMContentLoaded', function() {
                     element.content = translationValue;
                 }
             } else {
-                // console.warn(`مفتاح الترجمة '${key}' غير موجود للغة '${currentLanguage}'`);
+                 // console.warn(`مفتاح الترجمة '${key}' غير موجود للغة '${currentLanguage}'`);
             }
         });
 
-        if (languageToggleButton && translations.ar && translations.en) {
+        // تحديث نص زر تبديل اللغة
+        if (languageToggleButton) {
             const langToggleTextElement = languageToggleButton.querySelector('span');
             if (langToggleTextElement) {
-                 langToggleTextElement.textContent = currentLanguage === 'ar' ? (translations.en.lang_switch_text_short || 'EN') : (translations.ar.lang_switch_text_short || 'AR');
+                 const switchToLang = currentLanguage === 'ar' ? 'en' : 'ar';
+                 // تأكد أن مفتاح الترجمة لنص زر التبديل موجود
+                 langToggleTextElement.textContent = translations[switchToLang]?.lang_switch_text_short || (switchToLang === 'en' ? 'EN' : 'AR');
             }
         }
-        observeFadeInElements(); // استدعاء لتأثيرات الدخول بعد تغيير اللغة
+        observeFadeInElements();
+    }
+    
+    // دالة لتحديث النصوص الافتراضية عند فشل الترجمة
+    function updateDynamicTextFallbacks(lang) {
+        if (portfolioGrid && portfolioGrid.querySelector('.loading-message')) {
+            portfolioGrid.querySelector('.loading-message').textContent = lang === 'ar' ? 'جاري تحميل أحدث إبداعاتنا...' : 'Loading our latest creations...';
+        }
+        const noPortfolioItemsEl = portfolioGrid?.querySelector('.no-portfolio-items-text');
+        if (noPortfolioItemsEl) {
+            noPortfolioItemsEl.textContent = lang === 'ar' ? 'لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!' : 'No featured works to display currently. Stay tuned for our new additions!';
+        }
+         const portfolioErrorEl = portfolioGrid?.querySelector('.portfolio-load-error-text');
+        if (portfolioErrorEl) {
+            // النص الأساسي للخطأ سيأتي من error.message، هذا فقط للنص الثابت
+            // portfolioErrorEl.textContent = lang === 'ar' ? 'عفواً، حدث خطأ أثناء تحميل صور الأعمال من الخادم.' : 'Sorry, an error occurred while loading portfolio images from the server.';
+        }
     }
 
+
     if (languageToggleButton) {
-        languageToggleButton.addEventListener('click', () => {
+        languageToggleButton.addEventListener('click', (e) => {
+            e.preventDefault(); // منع أي سلوك افتراضي للرابط
             const newLang = currentLanguage === 'ar' ? 'en' : 'ar';
-            // تأكد أن الترجمات محملة قبل التبديل
             if (Object.keys(translations).length > 0 && translations[newLang]) {
                 setLanguage(newLang);
             } else {
-                // إذا لم تكن الترجمات محملة أو اللغة الجديدة غير موجودة، حاول تحميلها ثم التبديل
-                loadTranslations().then(() => {
+                loadTranslations().then(() => { // حاول تحميل الترجمات مرة أخرى إذا لم تكن محملة
                     if (Object.keys(translations).length > 0 && translations[newLang]) {
                          setLanguage(newLang);
                     } else {
-                        // إذا فشل التحميل أو اللغة ما زالت غير موجودة، فقط غير لغة العرض الافتراضية
                         currentLanguage = newLang;
                         localStorage.setItem('altaqwaLanguage', currentLanguage);
                         setLanguageDisplayFallback();
+                        updateDynamicTextFallbacks(newLang);
                         console.warn(`لم يتم العثور على ترجمات للغة '${newLang}' بعد محاولة التحميل.`);
                     }
                 });
@@ -147,23 +160,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.toggle('active');
             menuToggle.classList.toggle('active');
-            // منع الـ scroll للجسم عند فتح القائمة
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            document.body.style.overflow = isActive ? 'hidden' : '';
         });
     }
-    // إغلاق القائمة عند الضغط على رابط فيها (مفيد للصفحات ذات القسم الواحد)
     if (navLinks) {
-        navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                // لا تغلق القائمة إذا كان الرابط هو زر تغيير اللغة أو الثيم
-                if (this.id === 'language-toggle-link' || this.id === 'theme-toggle') return;
-
+        navLinks.querySelectorAll('a').forEach(anchor => { // تم التعديل ليشمل كل الروابط داخل القائمة
+            anchor.addEventListener('click', function () {
+                // لا تغلق القائمة إذا كان العنصر المضغوط عليه هو زر تغيير اللغة أو الثيم داخل القائمة
+                if (this.id === 'language-toggle-btn' || this.parentElement.id === 'language-toggle-btn' || this.id === 'theme-toggle') {
+                    return; 
+                }
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                     menuToggle.classList.remove('active');
-                    document.body.style.overflow = ''; // إعادة الـ scroll للجسم
+                    document.body.style.overflow = '';
                 }
             });
         });
@@ -179,208 +191,168 @@ document.addEventListener('DOMContentLoaded', function() {
     const portfolioGrid = document.getElementById('portfolioGrid');
 
     if (portfolioGrid) {
-        // استخدام مفتاح ترجمة هنا أيضاً
         portfolioGrid.innerHTML = `<p class="loading-message" data-translate-key="loading_portfolio">جاري تحميل أحدث إبداعاتنا...</p>`;
+        // تأكد من تطبيق الترجمة على الرسالة الأولية إذا كانت الترجمات قد تم تحميلها بالفعل
+        if (Object.keys(translations).length > 0 && translations[currentLanguage]?.loading_portfolio) {
+            portfolioGrid.querySelector('.loading-message').textContent = translations[currentLanguage].loading_portfolio;
+        }
         fetchPortfolioImages();
     }
 
     async function fetchPortfolioImages() {
-        // !!! هام جداً: تأكد أن هذا الـ IP والـ Port صحيحان للباك اند الذي يعمل على تيرمكس !!!
-        // !!! إذا كنت تجرب الفرونت اند من نفس الموبايل الذي عليه تيرمكس، استخدم 'http://localhost:5000' !!!
-        // !!! إذا كنت تجرب من جهاز آخر على نفس شبكة الواي فاي، استخدم الـ IP المحلي لموبايلك (مثل 192.168.X.X:5000) !!!
-        const backendBaseUrl = 'http://192.168.1.4:5000'; // <--- هذا هو الـ IP الذي ظهر لك سابقاً، تأكد منه!
-                                                       // أو استخدم 'http://localhost:5000' للتجربة من نفس الموبايل
+        // ========================== هام جداً يا سعيد ==========================
+        // 1. لو بتفتح الفرونت اند ده (صفحة GitHub Pages) من نفس الموبايل
+        //    اللي شغال عليه تيرمكس والباك اند، استخدم:
+        //    const backendBaseUrl = 'http://localhost:5000';
+        //
+        // 2. لو بتفتح الفرونت اند ده من جهاز تاني (كمبيوتر أو موبايل تاني)
+        //    والجهاز ده متوصل على نفس شبكة الواي فاي اللي عليها موبايل تيرمكس،
+        //    استخدم الـ IP اللي بيظهر في تيرمكس لما بتشغل python app.py
+        //    (زي 'http://192.168.1.4:5000' اللي ظهرلك قبل كده).
+        //    !!! اتأكد إن الـ IP ده هو الصحيح حالياً !!!
+        // =====================================================================
+        const backendBaseUrl = 'http://192.168.1.4:5000'; // <--- عدل هذا السطر حسب الحالة!
 
         const apiUrl = `${backendBaseUrl}/api/get-my-kitchen-images`;
+        console.log(`محاولة جلب الصور من: ${apiUrl}`); // للتأكد من الرابط في الـ console
 
         try {
             const response = await fetch(apiUrl, {
                 method: 'GET',
-                headers: {
-                    'Accept': 'application/json', // نطلب JSON
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
             if (!response.ok) {
-                let errorData = { message: `فشل الاتصال بالخادم لجلب الصور (الحالة: ${response.status})` };
+                let errorDetail = `الحالة: ${response.status} ${response.statusText}`;
                 try {
                     // محاولة قراءة رسالة الخطأ من الخادم إذا كانت JSON
                     const errJson = await response.json();
-                    if (errJson && errJson.error) errorData.message = errJson.error;
+                    if (errJson && errJson.error) errorDetail = errJson.error;
                 } catch (e) {
-                    // إذا لم تكن رسالة الخطأ JSON، استخدم النص العادي من الرد
+                    // إذا لم تكن رسالة الخطأ JSON، حاول قراءة النص العادي
                     const errText = await response.text();
-                    if (errText) errorData.message = errText;
-                    console.warn("رسالة الخطأ من الخادم لم تكن JSON:", errText);
+                    if (errText) errorDetail = errText.substring(0, 200); // نص قصير من الخطأ
+                    console.warn("رسالة الخطأ من الخادم لم تكن JSON أو طويلة جداً:", errText);
                 }
-                throw new Error(errorData.message);
+                throw new Error(errorDetail); // استخدام رسالة الخطأ من الخادم إن وجدت
             }
 
-            const images = await response.json(); // نتوقع أن الخادم يرجع JSON
+            const images = await response.json();
 
             if (!Array.isArray(images)) {
                 console.error("البيانات المستلمة من الخادم بخصوص الصور ليست مصفوفة:", images);
                 throw new Error("التنسيق المستلم من الخادم لبيانات الصور غير صحيح.");
             }
-            renderPortfolioImages(images); // لا نحتاج لتمرير backendBaseUrl هنا لأن الـ API يرجع روابط كاملة
+            renderPortfolioImages(images);
 
         } catch (error) {
             console.error("فشل في جلب أو عرض صور الأعمال:", error);
             if (portfolioGrid) {
-                 // استخدم مفتاح ترجمة إذا أردت
-                 portfolioGrid.innerHTML = `<p class="error-message" data-translate-key="portfolio_load_error">عفواً، حدث خطأ أثناء تحميل صور الأعمال من الخادم.<br> (${error.message})</p>`;
-                 setLanguage(currentLanguage); // أعد تطبيق الترجمة
+                const errorKey = "portfolio_load_error";
+                const fallbackMessage = `عفواً، حدث خطأ أثناء تحميل صور الأعمال.<br> (${error.message})`;
+                portfolioGrid.innerHTML = `<p class="error-message portfolio-load-error-text" data-translate-key="${errorKey}">${translations[currentLanguage]?.[errorKey]?.replace('{errorMessage}', error.message) || fallbackMessage}</p>`;
+                // أعد تطبيق الترجمة على رسالة الخطأ الجديدة إذا كانت الترجمات محملة
+                if(Object.keys(translations).length > 0) setLanguage(currentLanguage);
             }
         }
     }
 
     function renderPortfolioImages(images) {
         if (!portfolioGrid) return;
-        portfolioGrid.innerHTML = ''; // مسح رسالة التحميل أو أي محتوى قديم
+        portfolioGrid.innerHTML = '';
 
         if (images.length === 0) {
-            portfolioGrid.innerHTML = `<p class="text-center no-portfolio-items-text" style="padding: 2rem 0;" data-translate-key="no_portfolio_items">لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!</p>`;
-            setLanguage(currentLanguage); // أعد تطبيق الترجمة
+            const noItemsKey = "no_portfolio_items";
+            const fallbackMessage = "لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!";
+            portfolioGrid.innerHTML = `<p class="text-center no-portfolio-items-text" style="padding: 2rem 0;" data-translate-key="${noItemsKey}">${translations[currentLanguage]?.[noItemsKey] || fallbackMessage}</p>`;
+            if(Object.keys(translations).length > 0) setLanguage(currentLanguage); // أعد تطبيق الترجمة
             return;
         }
 
         images.forEach((imageInfo, index) => {
             const portfolioItem = document.createElement('div');
             portfolioItem.classList.add('portfolio-item', 'fade-in-on-scroll');
-            // لتأثير الدخول المتتابع
             portfolioItem.style.setProperty('--animation-delay', `${index * 100}ms`);
 
             const imgElement = document.createElement('img');
-            // بما أن imageInfo.imageUrl أصبح الرابط الكامل من الـ API (بفضل _external=True في Flask)
-            // نستخدمه مباشرة
-            imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png'; // صورة احتياطية
-            imgElement.alt = imageInfo.caption || "مطبخ من تصميم شركة التقوى"; // استخدم مفتاح ترجمة لو أمكن
-            imgElement.loading = "lazy"; // لتحسين الأداء
-            imgElement.onload = () => imgElement.classList.add('loaded'); // لإضافة تأثير بعد التحميل لو أردت
-            imgElement.onerror = () => { // في حالة فشل تحميل الصورة
-                imgElement.alt = "حدث خطأ أثناء تحميل هذه الصورة"; // استخدم مفتاح ترجمة
-                imgElement.src = 'images/placeholder-kitchen-error.png'; // صورة خطأ احتياطية
-                imgElement.classList.add('loaded'); // لإزالة أي spinners أو placeholders
+            imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png';
+            imgElement.alt = imageInfo.caption || (translations[currentLanguage]?.default_image_alt || "مطبخ من تصميم شركة التقوى");
+            imgElement.loading = "lazy";
+            imgElement.onload = () => imgElement.classList.add('loaded');
+            imgElement.onerror = () => {
+                imgElement.alt = translations[currentLanguage]?.image_load_error_alt || "حدث خطأ أثناء تحميل هذه الصورة";
+                imgElement.src = 'images/placeholder-kitchen-error.png';
+                imgElement.classList.add('loaded');
             };
 
             const captionElement = document.createElement('div');
             captionElement.classList.add('portfolio-caption');
-            captionElement.textContent = imageInfo.caption || "تصميم مطابخ التقوى"; // استخدم مفتاح ترجمة لو أمكن
+            captionElement.textContent = imageInfo.caption || (translations[currentLanguage]?.default_image_caption || "تصميم مطابخ التقوى");
 
             portfolioItem.appendChild(imgElement);
             portfolioItem.appendChild(captionElement);
             portfolioGrid.appendChild(portfolioItem);
         });
-        observeFadeInElements(); // استدعاء لتأثيرات الدخول للعناصر الجديدة
-        // لا داعي لـ setLanguage هنا إلا إذا كانت العناصر الجديدة نفسها تحتوي على data-translate-key
-        // وكان من المفترض أن يتم ترجمتها مباشرة عند الإنشاء لو كانت مفاتيح الترجمة موضوعة عليها
+        observeFadeInElements();
+        // إذا كانت الـ captions نفسها تحتاج ترجمة بمفاتيح خاصة، ستحتاج لاستدعاء setLanguage هنا
+        // أو إضافة data-translate-key للـ captionElement إذا كان النص ثابتاً
     }
 
-    // --- الجزء الخاص بطلبات الحجز (كما هو في كودك، أو يمكنك تعديله ليرسل للباك اند) ---
+    // --- الجزء الخاص بطلبات الحجز ---
     const bookingForm = document.getElementById('bookingForm');
-    const formMessage = document.getElementById('form-message'); // الرسالة التي تظهر بعد الإرسال
+    const formMessage = document.getElementById('form-message');
 
     if (bookingForm && formMessage) {
         bookingForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // منع الإرسال التقليدي للفورم
-
-            // مسح أي رسائل سابقة وإعادة الـ class
+            event.preventDefault();
             formMessage.innerHTML = '';
-            formMessage.className = 'form-message'; // افترض أن هذا هو الـ class الأساسي
+            formMessage.className = 'form-message';
 
-            // جلب البيانات من الحقول
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
             const notes = document.getElementById('notes').value.trim();
 
-            // التحقق من الحقول الإلزامية
             if (!name || !phone) {
-                // استخدم مفتاح ترجمة هنا إذا أردت
                 formMessage.textContent = translations[currentLanguage]?.validation_name_phone_required || 'يرجى إدخال الاسم ورقم الموبايل، فهما حقلان إلزاميان.';
-                formMessage.classList.add('error'); // افترض أن لديك class اسمه error للرسائل الخاطئة
+                formMessage.classList.add('error');
                 return;
             }
-
-            // طباعة البيانات في الـ console (للتجربة)
-            console.log("بيانات طلب الحجز (سيتم إرسالها للباك اند لاحقاً إذا أردت):", { name, phone, address, notes });
-
-            // عرض رسالة نجاح للمستخدم (مؤقتة، يمكنك تعديلها لترسل البيانات فعلياً)
-            // استخدم مفتاح ترجمة هنا إذا أردت
+            console.log("بيانات طلب الحجز:", { name, phone, address, notes });
             formMessage.textContent = translations[currentLanguage]?.booking_success_message || 'شكراً جزيلاً لك! تم استلام طلبك بنجاح. سيقوم م. هاني الفقي بالتواصل معك في أقرب فرصة خلال 24 ساعة.';
-            formMessage.classList.add('success'); // افترض أن لديك class اسمه success للرسائل الناجحة
-
-            bookingForm.reset(); // مسح حقول الفورم بعد الإرسال الناجح
-
-            /*
-            // ----- مثال لكيفية إرسال البيانات للباك اند (إذا عملت API للحجز) -----
-            // const formData = { name, phone, address, notes };
-            // const bookingApiUrl = 'http://192.168.1.4:5000/api/submit-booking-request'; // افترض أن هذا هو الـ API
-
-            // // إظهار رسالة "جاري الإرسال..."
-            // formMessage.textContent = translations[currentLanguage]?.booking_sending_message || 'جاري إرسال طلبك...';
-            // formMessage.classList.remove('error', 'success'); // إزالة أي classes سابقة
-
-            // fetch(bookingApiUrl, {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(formData)
-            // })
-            // .then(response => {
-            //     if (!response.ok) {
-            //         // محاولة قراءة رسالة الخطأ من الخادم
-            //         return response.json().then(err => { throw new Error(err.message || `خطأ ${response.status}`) });
-            //     }
-            //     return response.json(); // افترض أن الخادم يرجع رسالة نجاح
-            // })
-            // .then(data => {
-            //     formMessage.textContent = data.message || translations[currentLanguage]?.booking_success_message || 'تم إرسال طلبك بنجاح!';
-            //     formMessage.classList.add('success');
-            //     bookingForm.reset();
-            // })
-            // .catch(error => {
-            //     console.error('خطأ في إرسال طلب الحجز:', error);
-            //     formMessage.textContent = error.message || translations[currentLanguage]?.booking_error_message || 'عفواً، حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.';
-            //     formMessage.classList.add('error');
-            // });
-            */
+            formMessage.classList.add('success');
+            bookingForm.reset();
         });
     }
 
     // --- دالة مراقبة العناصر لتأثيرات الدخول عند الـ scroll ---
     function observeFadeInElements() {
         const fadeInElements = document.querySelectorAll('.fade-in-up, .fade-in-on-scroll');
-
-        // إذا كان المتصفح لا يدعم IntersectionObserver، أظهر كل العناصر مباشرة
         if (!("IntersectionObserver" in window)) {
             fadeInElements.forEach(el => {
-                el.classList.add('is-visible'); // اجعلها مرئية
-                 if(el.classList.contains('fade-in-up')) el.classList.add('visible'); // للأنيميشن الإضافي
+                el.classList.add('is-visible');
+                 if(el.classList.contains('fade-in-up')) el.classList.add('visible');
             });
             return;
         }
-
         const observer = new IntersectionObserver((entries, observerInstance) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                     if(entry.target.classList.contains('fade-in-up')) entry.target.classList.add('visible');
-                    observerInstance.unobserve(entry.target); // أوقف المراقبة بعد ظهور العنصر
+                    observerInstance.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.05 }); // يظهر العنصر عندما يكون 5% منه مرئياً
+        }, { threshold: 0.05 });
 
         fadeInElements.forEach(el => {
-            // تطبيق الـ delay إذا كان موجوداً كـ data attribute أو style property
             const delay = el.dataset.delay || el.style.getPropertyValue('--animation-delay');
-            if (delay) {
-                el.style.transitionDelay = delay;
-            }
+            if (delay) el.style.transitionDelay = delay;
             observer.observe(el);
         });
     }
 
     // --- استدعاء تحميل الترجمات عند تحميل الصفحة لأول مرة ---
-    loadTranslations(); // مهم جداً لبدء نظام الترجمة
+    loadTranslations();
 
 });
