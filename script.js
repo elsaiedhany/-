@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadTranslations() {
         try {
-            const response = await fetch('translations.json'); // تأكد أن مسار هذا الملف صحيح
+            const response = await fetch('translations.json');
             if (!response.ok) {
                 console.error(`فشل تحميل ملف الترجمة. الحالة: ${response.status} ${response.statusText}. المسار المطلوب: ${response.url}`);
                 setLanguageDisplayFallback();
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const translationValue = translations[currentLanguage]?.[key];
 
             if (translationValue !== undefined) {
-                if (element.hasAttribute('data-translate-html')) { // للترجمات التي تحتوي على HTML
+                if (element.hasAttribute('data-translate-html')) {
                     element.innerHTML = translationValue;
                 } else if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     if (element.placeholder !== undefined && element.hasAttribute('data-translate-placeholder')) {
@@ -86,15 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     element.textContent = translationValue;
                 }
-                // SEO: تحديث عنوان الصفحة ووصف الميتا
                 if (key === "page_title" && element.tagName === 'TITLE') document.title = translationValue;
                 if (key === "meta_description" && element.tagName === 'META' && element.name === 'description') element.content = translationValue;
-                // SEO: تحديث Open Graph و Twitter Card (إذا أضفت مفاتيح ترجمة لها)
                 if (key === "og_title" && element.tagName === 'META' && element.getAttribute('property') === 'og:title') element.content = translationValue;
                 if (key === "og_description" && element.tagName === 'META' && element.getAttribute('property') === 'og:description') element.content = translationValue;
                 if (key === "twitter_title" && element.tagName === 'META' && element.name === 'twitter:title') element.content = translationValue;
                 if (key === "twitter_description" && element.tagName === 'META' && element.name === 'twitter:description') element.content = translationValue;
-
             }
         });
 
@@ -105,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  langToggleTextElement.textContent = translations[switchToLang]?.lang_switch_text_short || (switchToLang === 'en' ? 'EN' : 'AR');
             }
         }
-        observeFadeInElements(); // استدعاء لتأثيرات الدخول بعد تغيير اللغة
+        observeFadeInElements();
     }
     
     function updateDynamicTextFallbacks(lang) {
@@ -115,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const noItemsEl = portfolioGrid?.querySelector('.no-portfolio-items-text[data-translate-key="no_portfolio_items"]');
         if (noItemsEl) noItemsEl.textContent = lang === 'ar' ? 'لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!' : 'No featured works to display currently. Stay tuned for our new additions!';
     }
-
 
     if (languageToggleButton) {
         languageToggleButton.addEventListener('click', (e) => {
@@ -138,24 +134,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const menuToggle = document.getElementById('menu-toggle-btn'); // استخدام ID لزر القائمة
-    const navLinksUl = document.getElementById('nav-links-ul');     // استخدام ID لقائمة الروابط
-
+    const menuToggle = document.getElementById('menu-toggle-btn');
+    const navLinksUl = document.getElementById('nav-links-ul');
     if (menuToggle && navLinksUl) {
         menuToggle.addEventListener('click', () => {
             const isActive = navLinksUl.classList.toggle('active');
-            menuToggle.classList.toggle('active'); // لستايل زر القائمة (مثل تغيير الأيقونة)
-            menuToggle.setAttribute('aria-expanded', isActive); // لسهولة الوصول
+            menuToggle.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', isActive);
             document.body.style.overflow = isActive ? 'hidden' : '';
         });
     }
     if (navLinksUl) {
         navLinksUl.querySelectorAll('a').forEach(anchor => {
             anchor.addEventListener('click', function () {
-                // لا تغلق القائمة إذا كان العنصر المضغوط عليه هو زر تغيير اللغة أو الثيم داخل القائمة
-                if (this.id === 'language-toggle-btn' || (this.parentElement && this.parentElement.id === 'language-toggle-btn') || this.id === 'theme-toggle') {
-                    return; 
-                }
+                if (this.id === 'language-toggle-btn' || (this.parentElement && this.parentElement.id === 'language-toggle-btn') || this.id === 'theme-toggle') return;
                 if (navLinksUl.classList.contains('active')) {
                     navLinksUl.classList.remove('active');
                     if(menuToggle) {
@@ -171,19 +163,68 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
 
+    // --- Lightbox Elements and Functions ---
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    function openLightbox(imgSrc, captionText) {
+        if (lightbox && lightboxImg && lightboxCaption) {
+            lightbox.style.display = "flex"; // Changed to flex for centering
+            lightboxImg.src = imgSrc;
+            lightboxCaption.textContent = captionText;
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeLightbox() {
+        if (lightbox) {
+            lightbox.style.display = "none";
+            document.body.style.overflow = 'auto';
+        }
+    }
+    // Assign close function to close button (if it's part of the lightbox HTML)
+    const lightboxCloseButton = document.querySelector('.lightbox-close');
+    if(lightboxCloseButton) {
+        lightboxCloseButton.onclick = closeLightbox;
+    }
+    // Close lightbox when clicking on the background
+    if (lightbox) {
+        lightbox.addEventListener('click', function(event) {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    }
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && lightbox && lightbox.style.display === "flex") {
+            closeLightbox();
+        }
+    });
+
+
+    // --- Portfolio Section Logic (with Load More and Lightbox) ---
     const portfolioGrid = document.getElementById('portfolioGrid');
-    if (portfolioGrid) {
+    const loadMoreButton = document.getElementById('loadMorePortfolio');
+    const portfolioControlsDiv = document.querySelector('.portfolio-controls'); // The div containing the button
+
+    let allPortfolioImages = []; 
+    let currentlyDisplayedImagesCount = 0;
+    const imagesPerLoad = 3; // <--  عدل هذا الرقم لعدد الصور التي تريد عرضها في كل مرة (مثلاً 3، 6، 9)
+
+    if (portfolioGrid) { // Check if portfolioGrid exists before proceeding
         portfolioGrid.innerHTML = `<p class="loading-message" data-translate-key="loading_portfolio">جاري تحميل أحدث إبداعاتنا...</p>`;
+        // Apply translation to initial message if translations are already loaded
         if (Object.keys(translations).length > 0 && translations[currentLanguage]?.loading_portfolio) {
-            portfolioGrid.querySelector('.loading-message').textContent = translations[currentLanguage].loading_portfolio;
+            const loadingMsgEl = portfolioGrid.querySelector('.loading-message');
+            if(loadingMsgEl) loadingMsgEl.textContent = translations[currentLanguage].loading_portfolio;
         }
         fetchPortfolioImages();
     }
 
     async function fetchPortfolioImages() {
-        // !!! لو بتفتح الفرونت اند من نفس الموبايل اللي عليه تيرمكس، استخدم localhost:5000 !!!
-        const backendBaseUrl = 'http://localhost:5000'; 
-
+        const backendBaseUrl = 'http://localhost:5000'; // تأكد أن هذا هو العنوان الصحيح
         const apiUrl = `${backendBaseUrl}/api/get-my-kitchen-images`;
         console.log(`INFO: محاولة جلب الصور من: ${apiUrl}`);
 
@@ -191,13 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch(apiUrl);
             if (!response.ok) {
                 let errorDetail = `فشل الاتصال بالخادم (الحالة: ${response.status} ${response.statusText})`;
-                try {
-                    const errJson = await response.json();
-                    if (errJson && errJson.error) errorDetail = errJson.error;
-                } catch (e) {
-                    const errText = await response.text();
-                    if (errText) errorDetail = errText.substring(0, 300); // نص قصير من الخطأ
-                }
+                try { const errJson = await response.json(); if (errJson && errJson.error) errorDetail = errJson.error; } 
+                catch (e) { const errText = await response.text(); if (errText) errorDetail = errText.substring(0, 300); }
                 console.error(`ERROR: ${errorDetail}`);
                 throw new Error(errorDetail);
             }
@@ -206,59 +242,101 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error("البيانات المستلمة من الخادم بخصوص الصور ليست مصفوفة:", images);
                 throw new Error("التنسيق المستلم من الخادم لبيانات الصور غير صحيح.");
             }
-            renderPortfolioImages(images);
+            
+            allPortfolioImages = images;
+            currentlyDisplayedImagesCount = 0;
+            if(portfolioGrid) portfolioGrid.innerHTML = ''; // Clear loading message or previous items
+
+            appendPortfolioImages(); // Display initial set of images
+
         } catch (error) {
             console.error("فشل كلي في جلب أو عرض صور الأعمال:", error);
             if (portfolioGrid) {
                 const errorKey = "portfolio_load_error";
                 const fallbackMessage = `عفواً، حدث خطأ أثناء تحميل صور الأعمال من الخادم.<br> (${error.message})`;
                 portfolioGrid.innerHTML = `<p class="error-message portfolio-load-error-text" data-translate-key="${errorKey}">${translations[currentLanguage]?.[errorKey]?.replace('{errorMessage}', error.message) || fallbackMessage}</p>`;
+                if(portfolioControlsDiv) portfolioControlsDiv.style.display = 'none'; // Hide load more button on error
                 if(Object.keys(translations).length > 0 && translations[currentLanguage]) setLanguage(currentLanguage);
             }
         }
     }
 
-    function renderPortfolioImages(images) {
+    function appendPortfolioImages() {
         if (!portfolioGrid) return;
-        portfolioGrid.innerHTML = '';
-        if (images.length === 0) {
+
+        const startIndex = currentlyDisplayedImagesCount;
+        const endIndex = startIndex + imagesPerLoad;
+        const imagesToDisplayThisLoad = allPortfolioImages.slice(startIndex, endIndex);
+
+        if (imagesToDisplayThisLoad.length === 0 && startIndex === 0) { // No images at all
             const noItemsKey = "no_portfolio_items";
             const fallbackMessage = "لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!";
             portfolioGrid.innerHTML = `<p class="text-center no-portfolio-items-text" style="padding: 2rem 0;" data-translate-key="${noItemsKey}">${translations[currentLanguage]?.[noItemsKey] || fallbackMessage}</p>`;
+            if(portfolioControlsDiv) portfolioControlsDiv.style.display = 'none';
             if(Object.keys(translations).length > 0 && translations[currentLanguage]) setLanguage(currentLanguage);
             return;
         }
-        images.forEach((imageInfo, index) => {
+
+        imagesToDisplayThisLoad.forEach((imageInfo, localIndex) => {
             const portfolioItem = document.createElement('div');
             portfolioItem.classList.add('portfolio-item', 'fade-in-on-scroll');
-            portfolioItem.style.setProperty('--animation-delay', `${index * 100}ms`);
+            portfolioItem.style.setProperty('--animation-delay', `${(startIndex + localIndex) * 100}ms`);
+
             const imgElement = document.createElement('img');
-            imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png'; // صورة احتياطية
-            imgElement.alt = imageInfo.caption || (translations[currentLanguage]?.default_image_alt || "مطبخ من تصميم شركة التقوى");
+            imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png';
+            const altText = imageInfo.caption || (translations[currentLanguage]?.default_image_alt || "مطبخ من تصميم شركة التقوى");
+            imgElement.alt = altText;
             imgElement.loading = "lazy";
+            
             imgElement.onload = () => imgElement.classList.add('loaded');
             imgElement.onerror = () => {
                 imgElement.alt = translations[currentLanguage]?.image_load_error_alt || "حدث خطأ أثناء تحميل هذه الصورة";
                 imgElement.src = 'images/placeholder-kitchen-error.png';
                 imgElement.classList.add('loaded');
             };
+            // Add click listener for Lightbox
+            imgElement.addEventListener('click', function() {
+                openLightbox(this.src, imageInfo.caption || (translations[currentLanguage]?.default_image_caption || "تصميم مطابخ التقوى"));
+            });
+
             const captionElement = document.createElement('div');
             captionElement.classList.add('portfolio-caption');
             captionElement.textContent = imageInfo.caption || (translations[currentLanguage]?.default_image_caption || "تصميم مطابخ التقوى");
+            
             portfolioItem.appendChild(imgElement);
             portfolioItem.appendChild(captionElement);
             portfolioGrid.appendChild(portfolioItem);
         });
+
+        currentlyDisplayedImagesCount += imagesToDisplayThisLoad.length;
+
+        // Update "Load More" button visibility
+        if (currentlyDisplayedImagesCount >= allPortfolioImages.length) {
+            if(loadMoreButton) loadMoreButton.style.display = 'none';
+            if(portfolioControlsDiv && currentlyDisplayedImagesCount > 0) { // Keep div if items were loaded
+                 // Optionally hide the div if the button is hidden and you want to reclaim space
+                 // portfolioControlsDiv.style.display = 'none'; 
+            }
+        } else {
+            if(loadMoreButton) loadMoreButton.style.display = 'inline-block';
+            if(portfolioControlsDiv) portfolioControlsDiv.style.display = 'block'; // Ensure div is visible
+        }
         observeFadeInElements();
     }
 
+    if (loadMoreButton) {
+        loadMoreButton.addEventListener('click', appendPortfolioImages);
+    }
+
+
+    // --- Booking Form Logic ---
     const bookingForm = document.getElementById('bookingForm');
     const formMessage = document.getElementById('form-message');
     if (bookingForm && formMessage) {
         bookingForm.addEventListener('submit', function(event) {
             event.preventDefault();
             formMessage.innerHTML = '';
-            formMessage.className = 'form-message'; // إعادة تعيين الكلاس
+            formMessage.className = 'form-message';
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
@@ -268,7 +346,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 formMessage.classList.add('error');
                 return;
             }
-            // هنا يمكنك إضافة كود لإرسال البيانات للباك اند إذا أردت عمل API للحجز
             console.log("بيانات طلب الحجز (للتجربة، لم يتم إرسالها):", { name, phone, address, notes });
             formMessage.textContent = translations[currentLanguage]?.booking_success_message || 'شكراً جزيلاً لك! تم استلام طلبك بنجاح. سيقوم م. هاني الفقي بالتواصل معك في أقرب فرصة خلال 24 ساعة.';
             formMessage.classList.add('success');
@@ -276,6 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // --- Animation Observer ---
     function observeFadeInElements() {
         const fadeInElements = document.querySelectorAll('.fade-in-up, .fade-in-on-scroll');
         if (!("IntersectionObserver" in window)) {
@@ -293,12 +371,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     observerInstance.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.05 });
+        }, { threshold: 0.05 }); // Adjust threshold as needed
         fadeInElements.forEach(el => {
             const delay = el.dataset.delay || el.style.getPropertyValue('--animation-delay');
             if (delay) el.style.transitionDelay = delay;
             observer.observe(el);
         });
     }
-    loadTranslations(); // بدء تحميل الترجمة عند تحميل الصفحة
+    
+    loadTranslations(); // Initial call to load translations and set up the page
 });
