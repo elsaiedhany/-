@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const translationValue = translations[currentLanguage]?.[key];
 
             if (translationValue !== undefined) {
-                if (element.hasAttribute('data-translate-html')) {
+                if (element.hasAttribute('data-translate-html')) { // للترجمات التي تحتوي على HTML
                     element.innerHTML = translationValue;
                 } else if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     if (element.placeholder !== undefined && element.hasAttribute('data-translate-placeholder')) {
@@ -86,8 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     element.textContent = translationValue;
                 }
+                // SEO: تحديث عنوان الصفحة ووصف الميتا
                 if (key === "page_title" && element.tagName === 'TITLE') document.title = translationValue;
                 if (key === "meta_description" && element.tagName === 'META' && element.name === 'description') element.content = translationValue;
+                // SEO: تحديث Open Graph و Twitter Card (إذا أضفت مفاتيح ترجمة لها)
+                if (key === "og_title" && element.tagName === 'META' && element.getAttribute('property') === 'og:title') element.content = translationValue;
+                if (key === "og_description" && element.tagName === 'META' && element.getAttribute('property') === 'og:description') element.content = translationValue;
+                if (key === "twitter_title" && element.tagName === 'META' && element.name === 'twitter:title') element.content = translationValue;
+                if (key === "twitter_description" && element.tagName === 'META' && element.name === 'twitter:description') element.content = translationValue;
+
             }
         });
 
@@ -98,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  langToggleTextElement.textContent = translations[switchToLang]?.lang_switch_text_short || (switchToLang === 'en' ? 'EN' : 'AR');
             }
         }
-        observeFadeInElements();
+        observeFadeInElements(); // استدعاء لتأثيرات الدخول بعد تغيير اللغة
     }
     
     function updateDynamicTextFallbacks(lang) {
@@ -108,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const noItemsEl = portfolioGrid?.querySelector('.no-portfolio-items-text[data-translate-key="no_portfolio_items"]');
         if (noItemsEl) noItemsEl.textContent = lang === 'ar' ? 'لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!' : 'No featured works to display currently. Stay tuned for our new additions!';
     }
+
 
     if (languageToggleButton) {
         languageToggleButton.addEventListener('click', (e) => {
@@ -130,62 +138,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- القائمة (Menu Toggle) ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.getElementById('menu-toggle-btn'); // استخدام ID لزر القائمة
+    const navLinksUl = document.getElementById('nav-links-ul');     // استخدام ID لقائمة الروابط
 
-    if (menuToggle && navLinks) {
+    if (menuToggle && navLinksUl) {
         menuToggle.addEventListener('click', () => {
-            const isActive = navLinks.classList.toggle('active');
-            menuToggle.classList.toggle('active');
+            const isActive = navLinksUl.classList.toggle('active');
+            menuToggle.classList.toggle('active'); // لستايل زر القائمة (مثل تغيير الأيقونة)
+            menuToggle.setAttribute('aria-expanded', isActive); // لسهولة الوصول
             document.body.style.overflow = isActive ? 'hidden' : '';
         });
     }
-    if (navLinks) {
-        navLinks.querySelectorAll('a').forEach(anchor => {
+    if (navLinksUl) {
+        navLinksUl.querySelectorAll('a').forEach(anchor => {
             anchor.addEventListener('click', function () {
-                if (this.id === 'language-toggle-btn' || this.parentElement.id === 'language-toggle-btn' || this.id === 'theme-toggle') {
+                // لا تغلق القائمة إذا كان العنصر المضغوط عليه هو زر تغيير اللغة أو الثيم داخل القائمة
+                if (this.id === 'language-toggle-btn' || (this.parentElement && this.parentElement.id === 'language-toggle-btn') || this.id === 'theme-toggle') {
                     return; 
                 }
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('active');
+                if (navLinksUl.classList.contains('active')) {
+                    navLinksUl.classList.remove('active');
+                    if(menuToggle) {
+                        menuToggle.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
                     document.body.style.overflow = '';
                 }
             });
         });
     }
 
-    // --- تحديث السنة الحالية في الـ Footer ---
     const currentYearSpan = document.getElementById('currentYear');
-    if (currentYearSpan) {
-        currentYearSpan.textContent = new Date().getFullYear();
-    }
+    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
 
-    // --- الجزء الخاص بجلب وعرض صور الأعمال من الباك اند ---
     const portfolioGrid = document.getElementById('portfolioGrid');
-
     if (portfolioGrid) {
         portfolioGrid.innerHTML = `<p class="loading-message" data-translate-key="loading_portfolio">جاري تحميل أحدث إبداعاتنا...</p>`;
+        if (Object.keys(translations).length > 0 && translations[currentLanguage]?.loading_portfolio) {
+            portfolioGrid.querySelector('.loading-message').textContent = translations[currentLanguage].loading_portfolio;
+        }
         fetchPortfolioImages();
     }
 
     async function fetchPortfolioImages() {
-        // ========================== التعديل الأساسي هنا يا سعيد ==========================
-        // بما أنك تفتح الفرونت اند والباك اند من نفس الموبايل،
-        // استخدم 'http://localhost:5000' أو 'http://127.0.0.1:5000'
-        // =================================================================================
-        const backendBaseUrl = 'http://localhost:5000'; // <--- هذا هو التعديل المطلوب
+        // !!! لو بتفتح الفرونت اند من نفس الموبايل اللي عليه تيرمكس، استخدم localhost:5000 !!!
+        const backendBaseUrl = 'http://localhost:5000'; 
 
         const apiUrl = `${backendBaseUrl}/api/get-my-kitchen-images`;
-        console.log(`محاولة جلب الصور من: ${apiUrl}`);
+        console.log(`INFO: محاولة جلب الصور من: ${apiUrl}`);
 
         try {
-            const response = await fetch(apiUrl, {
-                method: 'GET',
-                headers: { 'Accept': 'application/json' }
-            });
-
+            const response = await fetch(apiUrl);
             if (!response.ok) {
                 let errorDetail = `فشل الاتصال بالخادم (الحالة: ${response.status} ${response.statusText})`;
                 try {
@@ -193,26 +196,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (errJson && errJson.error) errorDetail = errJson.error;
                 } catch (e) {
                     const errText = await response.text();
-                    if (errText) errorDetail = errText.substring(0, 200);
+                    if (errText) errorDetail = errText.substring(0, 300); // نص قصير من الخطأ
                 }
+                console.error(`ERROR: ${errorDetail}`);
                 throw new Error(errorDetail);
             }
-
             const images = await response.json();
-
             if (!Array.isArray(images)) {
                 console.error("البيانات المستلمة من الخادم بخصوص الصور ليست مصفوفة:", images);
                 throw new Error("التنسيق المستلم من الخادم لبيانات الصور غير صحيح.");
             }
             renderPortfolioImages(images);
-
         } catch (error) {
-            console.error("فشل في جلب أو عرض صور الأعمال:", error);
+            console.error("فشل كلي في جلب أو عرض صور الأعمال:", error);
             if (portfolioGrid) {
                 const errorKey = "portfolio_load_error";
                 const fallbackMessage = `عفواً، حدث خطأ أثناء تحميل صور الأعمال من الخادم.<br> (${error.message})`;
                 portfolioGrid.innerHTML = `<p class="error-message portfolio-load-error-text" data-translate-key="${errorKey}">${translations[currentLanguage]?.[errorKey]?.replace('{errorMessage}', error.message) || fallbackMessage}</p>`;
-                if(Object.keys(translations).length > 0) setLanguage(currentLanguage);
+                if(Object.keys(translations).length > 0 && translations[currentLanguage]) setLanguage(currentLanguage);
             }
         }
     }
@@ -220,22 +221,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderPortfolioImages(images) {
         if (!portfolioGrid) return;
         portfolioGrid.innerHTML = '';
-
         if (images.length === 0) {
             const noItemsKey = "no_portfolio_items";
             const fallbackMessage = "لا توجد أعمال مميزة لعرضها حالياً. ترقبوا جديدنا قريباً!";
             portfolioGrid.innerHTML = `<p class="text-center no-portfolio-items-text" style="padding: 2rem 0;" data-translate-key="${noItemsKey}">${translations[currentLanguage]?.[noItemsKey] || fallbackMessage}</p>`;
-            if(Object.keys(translations).length > 0) setLanguage(currentLanguage);
+            if(Object.keys(translations).length > 0 && translations[currentLanguage]) setLanguage(currentLanguage);
             return;
         }
-
         images.forEach((imageInfo, index) => {
             const portfolioItem = document.createElement('div');
             portfolioItem.classList.add('portfolio-item', 'fade-in-on-scroll');
             portfolioItem.style.setProperty('--animation-delay', `${index * 100}ms`);
-
             const imgElement = document.createElement('img');
-            imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png';
+            imgElement.src = imageInfo.imageUrl || 'images/placeholder-kitchen.png'; // صورة احتياطية
             imgElement.alt = imageInfo.caption || (translations[currentLanguage]?.default_image_alt || "مطبخ من تصميم شركة التقوى");
             imgElement.loading = "lazy";
             imgElement.onload = () => imgElement.classList.add('loaded');
@@ -244,11 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 imgElement.src = 'images/placeholder-kitchen-error.png';
                 imgElement.classList.add('loaded');
             };
-
             const captionElement = document.createElement('div');
             captionElement.classList.add('portfolio-caption');
             captionElement.textContent = imageInfo.caption || (translations[currentLanguage]?.default_image_caption || "تصميم مطابخ التقوى");
-
             portfolioItem.appendChild(imgElement);
             portfolioItem.appendChild(captionElement);
             portfolioGrid.appendChild(portfolioItem);
@@ -256,35 +252,30 @@ document.addEventListener('DOMContentLoaded', function() {
         observeFadeInElements();
     }
 
-    // --- الجزء الخاص بطلبات الحجز ---
     const bookingForm = document.getElementById('bookingForm');
     const formMessage = document.getElementById('form-message');
-
     if (bookingForm && formMessage) {
         bookingForm.addEventListener('submit', function(event) {
             event.preventDefault();
             formMessage.innerHTML = '';
-            formMessage.className = 'form-message';
-
+            formMessage.className = 'form-message'; // إعادة تعيين الكلاس
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
             const notes = document.getElementById('notes').value.trim();
-
             if (!name || !phone) {
                 formMessage.textContent = translations[currentLanguage]?.validation_name_phone_required || 'يرجى إدخال الاسم ورقم الموبايل، فهما حقلان إلزاميان.';
                 formMessage.classList.add('error');
                 return;
             }
-            console.log("بيانات طلب الحجز:", { name, phone, address, notes });
-            // يمكنك هنا إضافة كود لإرسال البيانات للباك اند إذا أردت
+            // هنا يمكنك إضافة كود لإرسال البيانات للباك اند إذا أردت عمل API للحجز
+            console.log("بيانات طلب الحجز (للتجربة، لم يتم إرسالها):", { name, phone, address, notes });
             formMessage.textContent = translations[currentLanguage]?.booking_success_message || 'شكراً جزيلاً لك! تم استلام طلبك بنجاح. سيقوم م. هاني الفقي بالتواصل معك في أقرب فرصة خلال 24 ساعة.';
             formMessage.classList.add('success');
             bookingForm.reset();
         });
     }
 
-    // --- دالة مراقبة العناصر لتأثيرات الدخول عند الـ scroll ---
     function observeFadeInElements() {
         const fadeInElements = document.querySelectorAll('.fade-in-up, .fade-in-on-scroll');
         if (!("IntersectionObserver" in window)) {
@@ -303,15 +294,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, { threshold: 0.05 });
-
         fadeInElements.forEach(el => {
             const delay = el.dataset.delay || el.style.getPropertyValue('--animation-delay');
             if (delay) el.style.transitionDelay = delay;
             observer.observe(el);
         });
     }
-
-    // --- استدعاء تحميل الترجمات عند تحميل الصفحة لأول مرة ---
-    loadTranslations();
-
+    loadTranslations(); // بدء تحميل الترجمة عند تحميل الصفحة
 });
