@@ -1,191 +1,149 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark"> <head>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate-key="page_title">شركة التقوى للمطابخ - تصميم فاخر لمطبخ أحلامك</title>
-    <meta name="description" content="" data-translate-key="meta_description"> <meta name="keywords" content="مطابخ, تصميم مطابخ, شركة مطابخ, التقوى للمطابخ, هاني الفقي, مطابخ مودرن, مطابخ سوداء, مطابخ فاخرة, dark mode kitchens, egypt">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title data-translate-key="page_title">التقوى للمطابخ | تصميم وتنفيذ مطابخ عصرية</title>
+    <meta name="description" content="شركة التقوى رائدة في تصميم وتصنيع وتركيب المطابخ العصرية والحديثة بأجود الخامات وأفضل الأسعار في مصر. مطبخ أحلامك يبدأ من هنا مع م. هاني الفقي." data-translate-key="meta_description">
+    <meta name="keywords" content="مطابخ, تصميم مطابخ, مطابخ حديثة, مطابخ التقوى, تصنيع مطابخ, مطابخ عصرية, مطابخ مودرن, المهندس هاني الفقي, مصر, المنصورة, طلخا">
+    <meta name="author" content="شركة التقوى للمطابخ - م. هاني الفقي">
+    <meta name="robots" content="index, follow"> <meta property="og:title" content="التقوى للمطابخ | تصميم وتنفيذ مطابخ عصرية" data-translate-key="og_title"/> <meta property="og:description" content="خبرة سنوات في تصميم وتنفيذ أرقى المطابخ التي تجمع بين الجمال والوظائف العملية. جودة تستحقها، وتصميم يلهمك." data-translate-key="og_description"/> <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://elsaiedhany.github.io/altaqwa/"/> <meta property="og:image" content="https://elsaiedhany.github.io/altaqwa/images/og-image.jpg"/> <meta property="og:image:alt" content="تصميم مطبخ حديث من التقوى للمطابخ" data-translate-key="og_image_alt"/>
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="التقوى للمطابخ | تصميم وتنفيذ مطابخ عصرية" data-translate-key="twitter_title"/> <meta name="twitter:description" content="اكتشف أحدث تصاميم المطابخ العصرية مع التقوى للمطابخ. جودة عالية وتصاميم فريدة." data-translate-key="twitter_description"/> <meta name="twitter:image" content="https://elsaiedhany.github.io/altaqwa/images/og-image.jpg"/> <link rel="canonical" href="https://elsaiedhany.github.io/altaqwa/" /> <link rel="icon" href="favicon.png" type="image/png"> <link rel="apple-touch-icon" href="apple-touch-icon.png"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;900&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css"> </head>
 <body>
 
-    <a href="https://wa.me/201003515207?text=أرغب%20في%20الاستفسار%20عن%20تصميم%20مطبخ" class="whatsapp-float" target="_blank" aria-label="تواصل عبر واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <header class="site-header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <span class="logo-text">شركة التقوى <span class="logo-accent">للمطابخ</span></span>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active nav-item-animate" data-translate-key="nav_home">الرئيسية</a></li>
-                    <li><a href="#about-us-section" class="nav-item-animate" data-translate-key="nav_about">من نحن</a></li>
-                    <li><a href="#featured-work" class="nav-item-animate" data-translate-key="nav_portfolio">أعمالنا</a></li>
-                    <li><a href="#booking-section" class="nav-item-animate" data-translate-key="nav_booking">اطلب الآن</a></li>
-                    <li><a href="#contact-us-section" class="nav-item-animate" data-translate-key="nav_contact">اتصل بنا</a></li>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="#" data-translate-key="brand_name">التقوى للمطابخ</a>
+            </div>
+            <nav class="navigation">
+                <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle menu" aria-expanded="false" data-translate-key="toggle_menu_label" title="القائمة">☰</button>
+                <ul class="nav-links" id="nav-links-ul">
+                    <li><a href="#hero" class="nav-link" data-translate-key="nav_home">الرئيسية</a></li>
+                    <li><a href="#about" class="nav-link" data-translate-key="nav_about">عن الشركة</a></li>
+                    <li><a href="#portfolio" class="nav-link" data-translate-key="nav_portfolio">أعمالنا</a></li>
+                    <li><a href="#booking" class="nav-link" data-translate-key="nav_booking">اطلب تصميمك</a></li> <li><a href="#contact" class="nav-link" data-translate-key="nav_contact">تواصل معنا</a></li>
+                    <li class="nav-controls">
+                        <button id="theme-toggle" aria-label="Toggle theme" title="تغيير الوضع">
+                            <span id="theme-icon-moon" class="theme-icon" style="display: none;">🌙</span>
+                            <span id="theme-icon-sun" class="theme-icon">☀️</span>
+                        </button>
+                        <button id="language-toggle-btn" aria-label="Toggle language" title="Change Language">
+                            <span data-translate-key="lang_switch_text_short">EN</span>
+                        </button>
+                    </li>
                 </ul>
-                <div class="actions-container">
-                    <button id="language-toggle-btn" class="language-toggle-btn nav-item-animate" aria-label="تبديل اللغة">
-                        <span data-translate-key="lang_switch_text">EN</span> <i class="fas fa-globe"></i>
-                    </button>
-                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="تبديل الوضع">
-                        <i class="fas fa-sun" id="theme-icon-sun"></i> 
-                        <i class="fas fa-moon" id="theme-icon-moon" style="display:none;"></i>
-                    </button>
-                    <button class="menu-toggle" aria-label="فتح/إغلاق القائمة">
-                        <span class="hamburger-icon"></span>
-                    </button>
-                </div>
             </nav>
         </div>
     </header>
 
     <main>
-        <section id="hero" class="hero-section">
-            <div class="hero-overlay"></div>
-            <div class="container hero-content-container">
-                <div class="hero-content fade-in-up">
-                    <h2 class="engineer-name accent-text" data-translate-key="hero_engineer_name">بإدارة: م. هاني الفقي</h2>
-                    <h1 data-translate-key="hero_main_title">حيثُ الفخامة <span class="accent-text">تُعانِق الإبداع</span> في مطبخك</h1>
-                    <p data-translate-key="hero_subtitle">في "التقوى للمطابخ"، نحوّل المساحات إلى تحف فنية تنبض بالحياة. تصميمات فريدة تجمع بين أحدث التقنيات العالمية وأرقى الخامات، لتجربة مطبخ لا تُنسى.</p>
-                    <a href="#booking-section" class="btn btn-primary btn-lg hero-btn-animate" data-translate-key="hero_cta_button">اكتشف عالم التقوى لمطابخ الأحلام</a>
-                </div>
+        <section id="hero" class="hero">
+            <div class="container hero-content">
+                <h1 data-translate-key="hero_title" data-translate-html class="fade-in-up">نصنع لك <span class='accent-text'>مطبخ الأحلام</span></h1>
+                <p data-translate-key="hero_subtitle" class="fade-in-up" style="--animation-delay: 0.2s;">خبرة سنوات في تصميم وتنفيذ أرقى المطابخ العصرية التي تجمع بين الجمال الأخاذ والوظائف العملية. جودة تستحقها، وتصميم يلهمك.</p>
+                <a href="#booking" class="cta-button fade-in-up" style="--animation-delay: 0.4s;" data-translate-key="hero_cta">اكتشف المزيد واطلب تصميمك</a>
             </div>
         </section>
 
-        <section id="about-us-section" class="py-6 section-bg"> 
+        <section id="about" class="about-section">
             <div class="container">
-                <div class="section-title fade-in-on-scroll">
-                    <h2 data-translate-key="about_section_title">لماذا <span class="accent-text">التقوى</span> هي عنوانك الأول لمطبخ فاخر؟</h2>
-                    <p data-translate-key="about_section_subtitle">لأننا لا نصنع مطابخ فحسب، بل نصنع تجارب حياة يومية تجمع بين الجمال الأخاذ، الأداء العملي الفائق، والجودة التي تدوم لأجيال.</p>
-                </div>
+                <h2 class="section-title" data-translate-key="about_title" data-translate-html>لماذا تثق في <span class="accent-text">التقوى للمطابخ</span>؟</h2>
+                <p class="section-intro" data-translate-key="about_text_1">في التقوى للمطابخ، نؤمن بأن المطبخ هو قلب كل منزل، ولذلك نسعى جاهدين لتحويل رؤيتك إلى واقع ملموس يتجاوز توقعاتك. تحت إشراف **المهندس هاني الفقي**، نقدم لك:</p>
                 <div class="features-grid">
-                    <div class="feature-item fade-in-on-scroll" data-delay="100ms">
-                        <i class="fas fa-crown feature-icon accent-text"></i>
-                        <h3 data-translate-key="feature1_title">فخامة تليق بك</h3>
-                        <p data-translate-key="feature1_desc">أجود أنواع الأخشاب النادرة، أسطح الكوارتز والجرانيت الطبيعي، إكسسوارات من أرقى العلامات التجارية العالمية. مطبخك قطعة فنية متكاملة.</p>
+                    <div class="feature-item fade-in-on-scroll">
+                        <h3 data-translate-key="about_feature_1_title">تصاميم مبتكرة</h3>
+                        <p data-translate-key="about_point_1">نقدم تصاميم ثلاثية الأبعاد (3D) مبتكرة وعصرية تناسب جميع الأذواق والمساحات، مع استغلال مثالي لكل ركن.</p>
                     </div>
-                    <div class="feature-item fade-in-on-scroll" data-delay="200ms">
-                        <i class="fas fa-palette feature-icon accent-text"></i>
-                        <h3 data-translate-key="feature2_title">تصاميم تتخطى الخيال</h3>
-                        <p data-translate-key="feature2_desc">سواء كنت تحلم بمطبخ مودرن يخطف الأنفاس، أو كلاسيكي يعبق بالأصالة، مصممونا يحولون رؤيتك إلى إبداع ملموس يناسب شخصيتك الفريدة.</p>
+                    <div class="feature-item fade-in-on-scroll" style="--animation-delay: 0.1s;">
+                        <h3 data-translate-key="about_feature_2_title">أجود الخامات</h3>
+                        <p data-translate-key="about_point_2">نستخدم أجود أنواع الأخشاب والمعادن والإكسسوارات العالمية لضمان المتانة، الجودة، والعمر الطويل لمطبخك.</p>
                     </div>
-                    <div class="feature-item fade-in-on-scroll" data-delay="300ms">
-                        <i class="fas fa-tools feature-icon accent-text"></i>
-                        <h3 data-translate-key="feature3_title">إتقان يتحدث عن نفسه</h3>
-                        <p data-translate-key="feature3_desc">تحت الإشراف الشخصي للمهندس هاني الفقي، نضمن لك تنفيذًا لا تشوبه شائبة، التزامًا صارمًا بالجداول الزمنية، واهتمامًا بأدق التفاصيل.</p>
+                    <div class="feature-item fade-in-on-scroll" style="--animation-delay: 0.2s;">
+                        <h3 data-translate-key="about_feature_3_title">دقة والتزام</h3>
+                        <p data-translate-key="about_point_3">نتميز بالدقة في التنفيذ والالتزام الصارم بالمواعيد المتفق عليها، مع تقديم خدمة ما بعد البيع متميزة لراحتك.</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="featured-work" class="py-6 section-bg-alt"> 
-            <div class="container">
-                <div class="section-title fade-in-on-scroll">
-                    <h2 data-translate-key="portfolio_section_title">استلهم من <span class="accent-text">أعمالنا</span> السابقة</h2>
-                    <p data-translate-key="portfolio_section_subtitle">كل تصميم هو شهادة على شغفنا بالجودة والإبداع. شاهد كيف حوّلنا أحلام عملائنا إلى مطابخ تنبض بالحياة والأناقة.</p>
-                </div>
-                <div class="portfolio-grid" id="portfolioGrid">
-                    </div>
-            </div>
-        </section>
-        
-        <section id="booking-section" class="py-6 section-bg">
-            <div class="container">
-                <div class="section-title fade-in-on-scroll">
-                    <h2 data-translate-key="booking_section_title">مستعد لتبدأ <span class="accent-text">تحفة مطبخك</span>؟</h2>
-                    <p data-translate-key="booking_section_subtitle">خطوة بسيطة تفصلك عن مطبخ أحلامك. م. هاني الفقي في انتظارك ليقدم لك استشارة شخصية ويحول رؤيتك إلى حقيقة.</p>
-                </div>
-                <form id="bookingForm" class="booking-form fade-in-on-scroll" data-delay="200ms">
-                    <div class="form-group">
-                        <label for="name" data-translate-key="form_label_name">الاسم بالكامل:</label>
-                        <input type="text" id="name" name="name" required data-translate-placeholder="form_placeholder_name" placeholder="الاسم الكريم كاملاً">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone" data-translate-key="form_label_phone">رقم الموبايل:</label>
-                        <input type="tel" id="phone" name="phone" required data-translate-placeholder="form_placeholder_phone" placeholder="01xxxxxxxxx للتواصل السريع">
-                    </div>
-                    <div class="form-group">
-                        <label for="address" data-translate-key="form_label_address">العنوان (لترتيب المعاينة):</label>
-                        <input type="text" id="address" name="address" data-translate-placeholder="form_placeholder_address" placeholder="المدينة، الحي/المنطقة">
-                    </div>
-                    <div class="form-group">
-                        <label for="notes" data-translate-key="form_label_notes">نبذة عن المطبخ المطلوب (اختياري):</label>
-                        <textarea id="notes" name="notes" rows="4" data-translate-placeholder="form_placeholder_notes" placeholder="مثال: مطبخ مفتوح، لون أسود وذهبي، مساحة تقريبية..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block" data-translate-key="form_submit_button">أرسل طلبك الآن لنبدأ الإبداع</button>
-                </form>
-                <div id="form-message" class="form-message" role="status"></div>
-            </div>
-        </section>
-
-        <section id="testimonials" class="py-6 section-bg-alt">
-            <div class="container">
-                <div class="section-title fade-in-on-scroll">
-                    <h2 data-translate-key="testimonials_section_title">شهادات <span class="accent-text">نفتخر بها</span></h2>
-                    <p data-translate-key="testimonials_section_subtitle">رضا عملاؤنا هو أكبر دليل على تميزنا. استمع إلى بعض تجاربهم الملهمة مع مطابخ التقوى.</p>
-                </div>
-                <div class="testimonials-grid">
-                    <div class="testimonial-item fade-in-on-scroll" data-delay="100ms">
-                        <i class="fas fa-quote-right testimonial-quote-icon"></i>
-                        <p data-translate-key="testimonial1_text">"لم أتخيل أن مطبخي يمكن أن يصبح بهذه الفخامة والعملية! فريق التقوى بقيادة م. هاني عباقرة بحق. شكرًا من القلب."</p>
-                        <h4 data-translate-key="testimonial1_author">- سيدة/ أمل رشدي، مدينتي</h4>
-                    </div>
-                    <div class="testimonial-item fade-in-on-scroll" data-delay="200ms">
-                        <i class="fas fa-quote-right testimonial-quote-icon"></i>
-                        <p data-translate-key="testimonial2_text">"الاحترافية، الدقة، والذوق الرفيع هي عنوان شركة التقوى. تجربة بناء مطبخي معهم كانت ممتعة والنتيجة أبهرتني."</p>
-                        <h4 data-translate-key="testimonial2_author">- مهندس/ أحمد الشناوي، الشيخ زايد</h4>
+                     <div class="feature-item fade-in-on-scroll" style="--animation-delay: 0.3s;">
+                        <h3 data-translate-key="about_feature_4_title">أسعار تنافسية</h3>
+                        <p data-translate-key="about_point_4">نقدم لك أفضل قيمة مقابل سعر مع حلول تناسب ميزانيتك دون المساومة على الجودة.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact-us-section" class="py-6 contact-section">
-             <div class="contact-overlay"></div>
-            <div class="container contact-content-container">
-                <div class="section-title fade-in-on-scroll">
-                    <h2 class="text-light" data-translate-key="contact_section_title">تواصل معنا <span class="accent-text">اليوم</span></h2>
-                    <p class="text-light" data-translate-key="contact_section_subtitle">فريقنا جاهز للرد على استفساراتك ومساعدتك في كل خطوة نحو مطبخ أحلامك.</p>
+        <section id="portfolio" class="portfolio-section">
+            <div class="container">
+                <h2 class="section-title" data-translate-key="portfolio_title_section" data-translate-html>استلهم من <span class='accent-text'>إبداعاتنا</span></h2>
+                <div id="portfolioGrid" class="portfolio-grid">
+                    <p class="loading-message" data-translate-key="loading_portfolio">جاري تحميل أحدث إبداعاتنا...</p>
                 </div>
-                <div class="contact-details">
-                    <div class="contact-info-item fade-in-on-scroll" data-delay="100ms">
-                        <i class="fas fa-mobile-alt contact-icon"></i>
-                        <h3 data-translate-key="contact_phone_title">اتصال مباشر / واتساب</h3>
-                        <p><a href="tel:01003515207" class="text-light contact-link-main">01003515207</a></p>
-                        <p data-translate-key="contact_engineer_name">م. هاني الفقي</p>
-                    </div>
-                    <div class="contact-info-item fade-in-on-scroll" data-delay="200ms">
-                        <i class="fas fa-map-marker-alt contact-icon"></i>
-                        <h3 data-translate-key="contact_address_title">مقر الشركة</h3>
-                        <p class="text-light" data-translate-key="contact_address_detail">[العنوان التفصيلي - سيتم إضافته قريباً]</p>
-                    </div>
-                     <div class="contact-info-item fade-in-on-scroll" data-delay="300ms">
-                        <i class="fas fa-clock contact-icon"></i>
-                        <h3 data-translate-key="contact_hours_title">مواعيد العمل</h3>
-                        <p class="text-light" data-translate-key="contact_hours_detail_1">السبت - الخميس: 10:00 صباحاً - 10:00 مساءً</p>
-                        <p class="text-light" data-translate-key="contact_hours_detail_2">الجمعة: عطلة رسمية</p>
-                    </div>
+            </div>
+        </section>
+
+        <section id="booking" class="booking-section">
+            <div class="container">
+                <h2 class="section-title" data-translate-key="booking_title" data-translate-html>مستعد لتبدأ <span class='accent-text'>تحفة مطبخك</span>؟</h2>
+                <p class="section-intro" data-translate-key="booking_subtitle">خطوة بسيطة تفصلك عن مطبخ أحلامك. **المهندس هاني الفقي** وفريق التقوى في انتظارك ليحولوا رؤيتك إلى واقع ملموس. املأ البيانات وسنتواصل معك في أقرب وقت ممكن.</p>
+                <div class="form-container">
+                    <form id="bookingForm" aria-labelledby="booking-form-title">
+                        <h3 id="booking-form-title" class="sr-only" data-translate-key="booking_form_sr_title">نموذج طلب تصميم مبدئي</h3> <div class="form-group">
+                            <label for="name" data-translate-key="form_name_label">الاسم بالكامل:</label>
+                            <input type="text" id="name" name="name" required data-translate-placeholder data-translate-key="form_name_placeholder" placeholder="الاسم الكريم">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" data-translate-key="form_phone_label">رقم الموبايل (واتساب):</label>
+                            <input type="tel" id="phone" name="phone" required data-translate-placeholder data-translate-key="form_phone_placeholder" placeholder="01xxxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label for="address" data-translate-key="form_address_label">العنوان (اختياري):</label>
+                            <input type="text" id="address" name="address" data-translate-placeholder data-translate-key="form_address_placeholder" placeholder="المحافظة - المدينة/المركز - تفاصيل العنوان">
+                        </div>
+                        <div class="form-group">
+                            <label for="notes" data-translate-key="form_notes_label">ملاحظات إضافية (نوع المطبخ، المقاسات الأولية، إلخ):</label>
+                            <textarea id="notes" name="notes" rows="5" data-translate-placeholder data-translate-key="form_notes_placeholder" placeholder="أي تفاصيل أو أفكار لديك تود مشاركتها معنا..."></textarea>
+                        </div>
+                        <button type="submit" class="cta-button form-submit-button" data-translate-key="form_submit_button">أرسل طلب تصميم مبدئي الآن</button>
+                    </form>
+                    <div id="form-message" class="form-message" aria-live="assertive"></div>
                 </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                 <h2 class="section-title" data-translate-key="contact_title" data-translate-html><span class='accent-text'>تواصل معنا</span> مباشرة</h2>
+                 <p class="section-intro" data-translate-key="contact_text_1">نحن هنا للإجابة على جميع استفساراتك ومساعدتك في كل خطوة نحو مطبخ أحلامك. لا تتردد في الاتصال بنا أو زيارتنا في معرضنا.</p>
+                 <div class="contact-details-grid">
+                    <div class="contact-detail-item">
+                        <h3 data-translate-key="contact_phone_heading">اتصل بنا</h3>
+                        <p><strong data-translate-key="contact_phone_label">هاتفياً أو واتساب:</strong> <a href="tel:00201003515207">01003515207</a></p>
+                        <p><strong data-translate-key="contact_engineer_name_label">المهندس المسؤول:</strong> <span data-translate-key="contact_engineer_name_value">م. هاني الفقي</span></p>
+                    </div>
+                    <div class="contact-detail-item">
+                        <h3 data-translate-key="contact_address_heading">زورنا في معرضنا</h3>
+                        <p data-translate-key="contact_address_text">نتشرف بزيارتكم لمعاينة أحدث التصاميم والخامات.</p>
+                        <p><a href="https://www.google.com/maps/place/2QWV+XPX%D8%8C+Salamon+Al+Qomash%D8%8C+Mit+Salsil%D8%8C+Dakahlia+Governorate+1862202%D8%8C+Egypt/@31.0474375,31.7943125,17z/data=!3m1!4b1!4m6!3m5!1s0x14f9c4c65520b85b:0xa861503d130384c4!8m2!3d31.0474375!4d31.7943125!16s%2Fg%2F11h10q7q7r?hl=en&entry=ttu" target="_blank" rel="noopener noreferrer" class="map-link" data-translate-key="contact_map_link_text">📍 شاهد موقعنا على الخريطة 🗺️</a></p>
+                        <p data-translate-key="contact_current_location_note">(ملاحظة: أنت حالياً بالقرب من ميت سلسيل، الدقهلية)</p>
+                    </div>
+                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer-bottom text-light py-4">
+    <footer class="footer">
         <div class="container">
-            <div class="footer-bottom-content">
-                <p data-translate-key="footer_copyright">&copy; <span id="currentYear"></span> شركة التقوى للمطابخ. جميع الحقوق محفوظة لمؤسسها م. هاني الفقي.</p>
-            </div>
+            <p>&copy; <span id="currentYear"></span> <span data-translate-key="brand_name_footer">شركة التقوى للمطابخ</span>. <span data-translate-key="all_rights_reserved">جميع الحقوق محفوظة</span>.</p>
+            <p data-translate-key="footer_developed_by">تصميم وتطوير بواسطة <a href="https://wa.me/201003515207" target="_blank" rel="noopener noreferrer">م. هاني الفقي (التقوى)</a> وفريق العمل.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script src="js/main.js"></script> </body>
 </html>
